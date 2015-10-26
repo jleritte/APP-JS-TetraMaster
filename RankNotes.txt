@@ -1,0 +1,41 @@
+The game ranking system allows you to judge your ranking as a Tetra Master player. Your score increases according to the number and kind of cards you collect. You are ranked according to the following criteria, 1,700 points being the maximum possible.
+Each new image card earns you 10 pts. Duplicate cards will not increase your points. Thus, the total score by card image is 1,000 pts.
+Each new arrow combination worth 5 points. There are a total of 256 different arrow combinations. With a limitation on cards you can hold, the total score by arrows is 500 pts.
+Each X-Attack card is worth 1 pt, while an A-Attack card is worth 2 pts. P and M-Attack cards are not worth anything. Thus, the total by Attack Type is 200 pts.
+
+
+You can view your current rank by viewing the card menu (Found in the main menu). Here you can also see how many games you have won, lost, and drawn.If you can manage to gain all 1,700 points you will be the envy of your friends, as well as the other Tetra Master players in Gaia. Sadly though, this is the only reward you will get for this feat. The game gives you nothing for all your hard work. Below shows what rank is aquired with a certain amount of points.
+
+Level 	Points 	Rank Name
+1 	0 	Beginner
+2 	300 	Novice
+3 	400 	Player
+4 	500 	Senior
+5 	600 	Fan
+6 	700 	Leader
+7 	800 	Coach
+8 	900 	Advisor
+9 	1000 	Director
+10 	1100 	Dealer
+11 	1200 	Trader
+12 	1250 	Commander
+13 	1300 	Doctor
+14 	1320 	Professor
+15 	1330 	Veteran
+16 	1340 	Freak
+17 	1350 	Champion
+18 	1360 	Analyst
+19 	1370 	General
+20 	1380 	Expert
+21 	1390 	Shark
+22 	1400 	Specialist
+23 	1420 	Elder
+24 	1470 	Dominator
+25 	1510 	Maestro
+26 	1550 	King
+27 	1600 	Wizard
+28 	1650 	Authority
+29 	1680 	Emperor
+30 	1690 	Pro
+31 	1698 	Master
+32 	1700 	The Collector

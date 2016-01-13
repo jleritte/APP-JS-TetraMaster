@@ -187,7 +187,7 @@ var Tetra = {
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = url;
-    var entry = document.getElementsByTagName('script')[0];
+    var entry = document.getElementsByTagName('title')[0];
     entry.parentNode.insertBefore(link, entry);
   },
 
@@ -223,6 +223,7 @@ var Tetra = {
   buildGameArea: function(where){
     where = !where?'body':'.'+where;
     if(where === 'body'){
+      document.querySelector('title').innerHTML = 'Tetra Masters';
       this.loadFavicon();
     }
     var div = document.createElement('div');

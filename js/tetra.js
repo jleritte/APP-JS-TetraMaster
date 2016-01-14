@@ -261,23 +261,34 @@ var Tetra = {
   },
   loadCardSelectionScreen: function(){
     Tetra.game.className = 'game cards';
-      $.load('js/templates/cardSelection.html', function () {
-        for(var i = 0; i < 100; i++) {
-          if(Tetra.collection[i].cards.length > 0){
-            var type = Tetra.collection[i].cards[0].icon;
-            $('.'+i).addClass('full icon-'+type).children().removeClass().html(Tetra.collection[i].cards.length);
-            if(Tetra.collection[i].cards.length == 1){
-              $('.'+i).children().addClass("clear");
-            }
-          }
+    Tetra.game.innerHTML = this.cardSelectionScreen.join('');//require('templates').cardSelectionScreen.join('');
+    var table = document.querySelector('table.grid').firstElementChild,i,j;
+    for(i = 0;i < 10;i++){
+      table.innerHTML += this.cardSelectRow.join('');//require('templates').cardSelectRow.join('');
+      var row = table.lastElementChild;
+      for(j = 0;j < 10;j++){
+        var cell = this.cardSelectCell;//require('templates').cardSelectCell.join('');
+        cell.splice(1,1,'C'+parseInt(''+j+i));
+        row.innerHTML += cell.join('');
+      }
+    }
+    Tetra.collection.forEach(function(e,i){
+      if(e.cards.length > 0){
+        var type = e.cards[0].icon, cell = document.querySelector('.C'+i);
+        cell.className += ' full icon-'+type;
+        cell.firstElementChild.className = '';
+        cell.firstElementChild.innerHTML = e.cards.length;
+        if(e.cards.length == 1){
+          cell.firstElementChild.className = "clear";
         }
-        Tetra.fillPlayerInfo();
-        Tetra.setButtons();
-        Tetra.setSelectGrid();
-      });
-      $.get('js/templates/card.html', function (card) {
-        $('.game').append(card);
-      },'html');
+      }
+    });
+    Tetra.fillPlayerInfo();
+    Tetra.setButtons();
+    Tetra.setSelectGrid();
+    $.get('js/templates/card.html', function (card) {
+      $('.game').append(card);
+    },'html');
   },
   setSelectGrid: function(){
     $('.full').click(function(){
@@ -1016,6 +1027,48 @@ var Tetra = {
         "</ul>",
       "</div>",
     "</div>"
+  ],
+  cardSelectionScreen: [
+    "<div>",
+      "<div class=\"gridContain\">",
+        "<table class=\"grid\">",
+          "<tbody>",
+          "</tbody>",
+        "</table>",
+        "<ul>",
+          "<li class=\"cCount\">Stock: <span>0</span></li>",
+          "<li class=\"type\">Type: <span>0</span></li>",
+        "</ul>",
+      "</div>",
+      "<div class=\"playerInfo\">",
+        "<ul>",
+          "<li class=\"collectorLvl\">Collector <span>LV</span>: <span class=\"wld\">1700p</span>",
+            "<span class=\"rank\">Beginner</span></li>",
+          "<hr />",
+          "<li class=\"wins\">Wins:<span class=\"wld\">0 </span></li>",
+          "<li class=\"losses\">Losses:<span class=\"wld\">0 </span></li>",
+          "<li class=\"draws\">Draws:<span class=\"wld\">0 </span></li>",
+        "</ul>",
+      "</div>",
+      "<div class=\"cardInfo\">",
+      "</div>",
+      "<div class=\"tempHand\"></div>",
+      "<div class=\"buttons\">",
+        "<ul>",
+          "<li class=\"menu\">Menu</li>",
+          "<li class=\"reload\">Reload</li>",
+        "</ul>",
+      "</div>",
+    "</div>"
+  ],
+  cardSelectRow:[
+    "<tr class=\"cardGrid\">",
+    "</tr>"
+  ],
+  cardSelectCell: [
+    "<td class=\"cardGrid ",-1,"\">",
+      "<div class=\"cardGridcont\"></div>",
+    "</td>"
   ]
 };
 

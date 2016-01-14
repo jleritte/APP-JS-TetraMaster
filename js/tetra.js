@@ -1,71 +1,3 @@
-/*var Tetra = (function(){
-  var vars = {
-    //Max number of cards
-    max: 100,
-    //Arrays to Hold persistant Objects
-    collection: [],
-    gameCards: [],
-    names: [],
-    area: [],
-    playerStats: {
-      "wins":0,
-      "losses":0,
-      "draws":0
-    },
-  },
-  me = {
-    init: init,
-    _private:{vars:vars}
-  };
-
-  //Start Here
-  function init(where){
-    loadStyles('css/tetra.css');
-    loadScript('http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',function(){
-      loadScript('js/cardList.js',function () {
-        buildGameArea(where);
-      });
-    });
-  }
-  //Loads Style in
-  function loadStyles(url){
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = url;
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(link, entry);
-  }
-  //Loads Extra Files
-  function loadScript(url, callback){
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = url;
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
-    script.onload = script.onreadystatechange = function()
-    {
-      var rdyState = script.readyState;
-      if (!rdyState || /complete|loaded/.test(script.readyState))
-      {
-        callback();
-        script.onload = null;
-        script.onreadystatechange = null;
-      }
-    };
-  }
-  //Loads Favicon
-  function loadFavicon(){
-    var icon = document.createElement('link');
-    icon.rel = 'shortcut icon';
-    icon.href = 'images/favicon.ico';
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(icon, entry);
-  }
-
-  return me;
-})();
-*/
 var Tetra = {
   //Max number of cards
   max: 100,
@@ -79,9 +11,9 @@ var Tetra = {
     "losses":0,
     "draws":0
   },
-
+  game: '',
+  opponent: '',
   //Object templates
-
   //Card Data
   Card: function(num){
     this.num = num?num:Tetra.getCardNumber();
@@ -108,7 +40,6 @@ var Tetra = {
     this.cards = [];
     this.shifted = 1;
   },
-
   //Play Area
   PlayArea: function(){
     this.area = [];
@@ -131,7 +62,6 @@ var Tetra = {
       if(count < 0){break;}
     }
   },
-
   //HTML or Visual Card
   HtmlCard: function(card,index){
     cardDiv = $('.card.template').clone();
@@ -145,7 +75,6 @@ var Tetra = {
     $(cardDiv).attr('data-where', index).attr('data-local', 'hand').find('.name').text(card.name).parent().find('.value').text(card.value);
     return cardDiv;
   },
-
   //Html Challenger
   HtmlChallenger: function(){
     var j = 0,
@@ -168,9 +97,7 @@ var Tetra = {
       this.rating += (j <= Tetra.challengers[i].rating-1)?'<span class=power>&ofcir;</span>':'<span class=empty>&xodot;</span>';
     }
   },
-
   //Function Begin
-
   //Start Here
   init: function(where){
     this.loadStyles('css/tetra.css');
@@ -180,7 +107,6 @@ var Tetra = {
       });
     });
   },
-
   //Loads Style in
   loadStyles: function(url){
     var link = document.createElement('link');
@@ -190,7 +116,6 @@ var Tetra = {
     var entry = document.getElementsByTagName('title')[0];
     entry.parentNode.insertBefore(link, entry);
   },
-
   //Loads Extra Files
   loadScript: function(url, callback){
     var script = document.createElement('script');
@@ -209,7 +134,6 @@ var Tetra = {
       }
     };
   },
-
   //Loads Favicon
   loadFavicon: function(){
     var icon = document.createElement('link');
@@ -218,7 +142,6 @@ var Tetra = {
     var entry = document.getElementsByTagName('script')[0];
     entry.parentNode.insertBefore(icon, entry);
   },
-
   //Parent Div
   buildGameArea: function(where){
     where = !where?'body':'.'+where;
@@ -227,49 +150,39 @@ var Tetra = {
       this.loadFavicon();
     }
     var div = document.createElement('div');
-    $(where)
-      .append(
-        $(div)
-          .addClass('game')
-      );
+    div.className = 'game';
+    document.querySelector(where).appendChild(div);
+    Tetra.game = div;
     this.loadStartScreen();
   },
-
   //Start Screen\Main Menu
   loadStartScreen: function(){
-    $('.game')
-      .removeClass()
-      .addClass('game main')
-      .load('js/templates/mainMenu.html',function () {
-        Tetra.setMenuClicks();
-      });
+    Tetra.game.className = 'game main';
+    Tetra.game.innerHTML = this.mainScreen.join('');//require('templates').mainMenu.join('');
+    Tetra.setMenuClicks();
   },
-
   //Menu Functionality
   setMenuClicks: function(){
-    var buttons = $('.menuContainer UL').children();
-    $(buttons[0]).click(function(event){
+    var buttons = document.querySelectorAll('.menuButton');
+    buttons[0].addEventListener('click',function(event){
       Tetra.startNewGame();
     });
-    $(buttons[1]).click(function(event){
+    buttons[1].addEventListener('click',function(event){
       Tetra.continueGame();
     });
-    $(buttons[2]).click(function(event){
+    buttons[2].addEventListener('click',function(event){
       Tetra.loadOptionsMenu();
     });
   },
-
   //Main Menu Fucntions
   startNewGame: function(){
     this.createStartCards();
     this.loadChallengers();
   },
-
   continueGame: function(){
     this.loadPlayerCards();
     this.loadChallengers();
   },
-
   loadOptionsMenu: function(){
     alert('Options');
     var tempCards = [];
@@ -291,7 +204,6 @@ var Tetra = {
     localStorage.playerCards = JSON.stringify(this.collection);
     this.loadChallengers();
   },
-
   //New Game Function
   createStartCards: function(){
     var tempCards = [];
@@ -312,52 +224,44 @@ var Tetra = {
     }
     localStorage.playerCards = JSON.stringify(this.collection);
   },
-
   //Continue Function
   loadPlayerCards: function(){
     localStorage.playerCards ? this.collection = JSON.parse(localStorage.playerCards) : this.startNewGame();
   },
-
   //Game Start Functions
   loadChallengers: function(){
+    var list;
     this.names = [];
-    $('.game')
-      .removeClass()
-      .addClass('game challengers')
-      .load('js/templates/challengerSelect.html', function () {
-        for(i = 0;i < 10;i++){
-          li = document.createElement('li');
-          who = new Tetra.HtmlChallenger();
-          var temp = document.createElement('span');
-          $('.challengeList')
-            .append(
-              $(li)
-                .addClass('challenge '+who.name)
-                .append(who.img)
-                .append($(temp).html(who.name+'<br/>'+who.rating))
-          );
-        }
-        Tetra.setButtons();
-        Tetra.setChallengers();
-      });
+    Tetra.game.className = 'game challengers';
+    Tetra.game.innerHTML = this.challengeScreen.join('');//require('templates').challengeScreen.join('');
+    list = document.querySelector('.challengeList');
+    for(i = 0;i < 10;i++){
+      var li = document.createElement('li'),
+          who = new Tetra.HtmlChallenger(),
+          temp = document.createElement('span');
+      li.className = 'challenge ' + who.name;
+      li.appendChild(who.img);
+      temp.innerHTML = who.name + '<br/>' + who.rating;
+      li.appendChild(temp);
+      list.appendChild(li);
+    }
+    Tetra.setButtons();
+    Tetra.setChallengers();
   },
-
-  setChallengers: function(event){
-    $('.challenge').click(function(){
-      var who = $(this).attr('class');
-      who = who.split(' ');
-      who = who.splice(1,who.length-1);
-      who = who.join(' ');
-      console.log(who);
-      Tetra.loadCardSelectionScreen();
+  setChallengers: function(){
+    Array.prototype.forEach.call(document.querySelectorAll('.challenge'),function(e){
+      e.addEventListener('click',function(){
+        var who = this.className;
+        who = who.replace('challenge ','');
+        console.log(who);
+        Tetra.opponent = who;
+        Tetra.loadCardSelectionScreen();
+      });
     });
   },
-
-  loadCardSelectionScreen: function(callback){
-    $('.game')
-      .removeClass()
-      .addClass('game cards')
-      .load('js/templates/cardSelection.html', function () {
+  loadCardSelectionScreen: function(){
+    Tetra.game.className = 'game cards';
+      $.load('js/templates/cardSelection.html', function () {
         for(var i = 0; i < 100; i++) {
           if(Tetra.collection[i].cards.length > 0){
             var type = Tetra.collection[i].cards[0].icon;
@@ -370,21 +274,16 @@ var Tetra = {
         Tetra.fillPlayerInfo();
         Tetra.setButtons();
         Tetra.setSelectGrid();
-        if (callback) {
-          callback();
-        }
       });
       $.get('js/templates/card.html', function (card) {
         $('.game').append(card);
       },'html');
   },
-
   setSelectGrid: function(){
     $('.full').click(function(){
       Tetra.rendercardSelector(this);
     });
   },
-
   setSelector: function(where){
     var temp;
     $('.selector').unbind('click').click(function(){
@@ -443,7 +342,6 @@ var Tetra = {
       setTimeout(function(){Tetra.rendercardSelector(where);},150);
     });
   },
-
   buildPlayArea: function(){
     $('.game')
       .removeClass()
@@ -454,7 +352,6 @@ var Tetra = {
         Tetra.renderCards();
       },'html');
   },
-
   renderCards: function(){
     var i = 0,
       cards = this.gameCards;
@@ -477,7 +374,6 @@ var Tetra = {
     }
     this.setCards();
   },
-
   setCards: function(){
     $('.card').unbind('click').click(function(){
       var location = Tetra.getLocation(this);
@@ -507,7 +403,6 @@ var Tetra = {
     });
     this.renderGrid();
   },
-
   renderGrid: function(){
     this.area = new this.PlayArea();
     $('.field').find('td').each(function (i) {
@@ -519,7 +414,6 @@ var Tetra = {
     this.getScores();
     this.setButtons();
   },
-
   setGrid: function(){
     $('.field td').click(function(event){
       var card;
@@ -544,11 +438,9 @@ var Tetra = {
       }
     });
   },
-
   getLocation: function(grid){
     return $(grid).attr('data-local');
   },
-
   getScores: function(fights){
     var p1 = 0,
       p2 = 0,
@@ -583,7 +475,6 @@ var Tetra = {
       //location.reload();
     });
   },
-
   //Random Util Functions To be Sorted But needed to get going right now
   fillPlayerInfo: function(){
     if(localStorage.playerStats){
@@ -602,7 +493,6 @@ var Tetra = {
     $('.cCount').children().text(Tetra.countCards());
     $('.type').children().text(Tetra.countTypes());
   },
-
   countCards: function(){
     var count = 0,
       i = 0;
@@ -611,7 +501,6 @@ var Tetra = {
     }
     return count;
   },
-
   countTypes: function(){
     var count = 0,
       i = 0;
@@ -622,7 +511,6 @@ var Tetra = {
     }
     return count;        
   },
-
   checkForGameEnd: function(fights){
     var p1 = parseInt($('.p1').attr('data-score'),10),
       p2 = parseInt($('.p2').attr('data-score'),10),
@@ -692,7 +580,6 @@ var Tetra = {
       return;
     }
   },
-
   cleanUp: function(){
     if(gameCards.length > 0){
       gameCards = gameCards.splice(0,5);
@@ -707,7 +594,6 @@ var Tetra = {
     // localStorage.playerStats = JSON.stringify(playerStats);
     // localStorage.playerCards = JSON.stringify(collection);
   },
-
   clearBoard: function(){
     $('.card').attr('data-local','hand').each(function(){
       temp = $(this).attr('class');
@@ -725,7 +611,6 @@ var Tetra = {
     temp = document.createElement('div');
     $('.fieldBox').empty().append($(temp).addClass('field').css('border','1px solid transparent'));
   },
-
   rendercardSelector: function(where){
     $('.hover').removeClass('hover');
     $(where).addClass('hover');
@@ -766,7 +651,6 @@ var Tetra = {
       Tetra.isFaceUp(temp);
     }
   },
-
   isFaceUp: function(card){
     if($(card).hasClass('faceUp')){
       $(card).children().each(function(){
@@ -781,11 +665,9 @@ var Tetra = {
       });
     }
   },
-
   getValue: function(min,max){
     return Math.random() * (max-min) + min;
   },
-
   getCardNumber: function(){
     var weights = [0.5,0.2,0.1,0.05,0.03,0.03,0.03,0.02,0.02,0.02],
       values = [1,2,3,4,5,6,7,8,9,10],
@@ -793,7 +675,6 @@ var Tetra = {
       num2 = this.getWeigthed(values,weights);
     return num1*num2;
   },
-
   getWeigthed: function(list,weight){
     var total = weight.reduce(function(prev,cur,i,arr){
       return prev + cur;
@@ -809,7 +690,6 @@ var Tetra = {
       }
     }
   },
-
   getCardMaxes: function(card){
     var list = this.masterCardList[card.num-1];
     card.name = list[0];
@@ -819,7 +699,6 @@ var Tetra = {
     card.maxMdef = list[4];
     card.icon = list[5];
   },
-
   convertValue: function(card){
     var value = '',
       temp = card.atk;
@@ -831,7 +710,6 @@ var Tetra = {
     value += this.convertToHex(temp);
     return value;
   },
-
   convertToHex: function(num){
     if(num>=0&&num<=15){
       num = 0;
@@ -868,7 +746,6 @@ var Tetra = {
     }
     return num;
   },
-
   setArrows: function(card){
     var count = card.arrwNum,
       total = 7;
@@ -889,12 +766,8 @@ var Tetra = {
       if(total < 0){break;}
     }
   },
-
   getPrimes: function(max) {
-    var sieve = [],
-      i = 0,
-      j = 0,
-      primes = [];
+    var sieve = [], i, j, primes = [];
     for (i = 2; i <= max; ++i) {
       if (!sieve[i]) {
         primes.push(i);
@@ -905,7 +778,6 @@ var Tetra = {
     }
     return primes;
   },
-
   checkForAttack: function(card){
     var arrows = this.gameCards[$(card).attr('data-where')].arrws,
       where = $(card).attr('data-local'),
@@ -964,7 +836,6 @@ var Tetra = {
     }
     setTimeout(function(){Tetra.getScores(fights);},1001);
   },
-
   isEmpty: function(location){
     var empty = true;
     if($('.'+location)[0]){
@@ -972,7 +843,6 @@ var Tetra = {
     }
     return empty;
   },
-
   isFight: function(card,threat,owner){
     var me = $('.'+card),
       arrows = this.gameCards[me.attr('data-where')].arrws,
@@ -986,7 +856,6 @@ var Tetra = {
     }
     return fight;
   },
-
   fight: function(attacked,attacker){
     var attckr = this.gameCards[$(attacker).attr('data-where')],
       attckd = this.gameCards[$(attacked).attr('data-where')],
@@ -1021,7 +890,6 @@ var Tetra = {
       }
     },1000);
   },
-
   checkCombo: function(card,recheck){
     var arrows = this.gameCards[$(card).attr('data-where')].arrws,
       where = $(card).attr('data-local'),
@@ -1035,7 +903,6 @@ var Tetra = {
       }
     }
   },
-
   capture: function(loss,gain,time){
     loss = $(loss);
     gain = $(gain);
@@ -1050,7 +917,6 @@ var Tetra = {
       }
     },time);
   },
-
   getSurround: function(center){
     var i = 0,
       j = 0,
@@ -1096,7 +962,6 @@ var Tetra = {
     }
     return group;
   },
-
   largest: function(card){
     var attack = card.atk;
     if(card.pdef > attack){
@@ -1107,7 +972,6 @@ var Tetra = {
     }
     return attack;
   },
-
   smaller: function(card){
     var defense = card.pdef;
     if(card.mdef < defense){
@@ -1115,7 +979,6 @@ var Tetra = {
     }
     return defense;
   },
-
   smallest: function(card){
     var defense = card.atk;
     if(card.pdef < defense){
@@ -1125,5 +988,34 @@ var Tetra = {
       defense = card.mdef;
     }
     return defense;
-  }
+  },
+  //will be moved to templates file
+  mainScreen: [
+    "<div>",
+      "<div class=\"title\">TETRA MASTERS</div>",
+      "<div class=\"menuContainer\">",
+        "<ul>",
+          "<li class=\"menuButton\">NEW GAME</li>",
+          "<li class=\"menuButton\">CONTINUE</li>",
+          "<li class=\"menuButton\">OPTIONS</li>",
+        "</ul>",
+      "</div>",
+    "</div>"
+  ],
+  challengeScreen: [
+    "<div>",
+      "<div class=\"header\">Please Select Opponent</div>",
+      "<div class=\"challengerContain\">",
+        "<ul class=\"challengeList\">",
+        "</ul>",
+      "</div>",
+      "<div class=\"buttons\">",
+        "<ul>",
+          "<li class=\"menu\">Menu</li>",
+          "<li class=\"reload\">Reload</li>",
+        "</ul>",
+      "</div>",
+    "</div>"
+  ]
 };
+

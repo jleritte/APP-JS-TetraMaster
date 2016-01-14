@@ -1,0 +1,29 @@
+{
+  "mainMenu": [
+    "<div>",
+      "<div class=\"title\">TETRA MASTERS</div>",
+      "<div class=\"menuContainer\">",
+        "<ul>",
+          "<li class=\"menuButton\">NEW GAME</li>",
+          "<li class=\"menuButton\">CONTINUE</li>",
+          "<li class=\"menuButton\">OPTIONS</li>",
+        "</ul>",
+      "</div>",
+    "</div>"
+  ],
+  "challengeScreen": [
+    "<div>",
+      "<div class=\"header\">Please Select Opponent</div>",
+      "<div class=\"challengerContain\">",
+        "<ul class=\"challengeList\">",
+        "</ul>",
+      "</div>",
+      "<div class=\"buttons\">",
+        "<ul>",
+          "<li class=\"menu\">Menu</li>",
+          "<li class=\"reload\">Reload</li>",
+        "</ul>",
+      "</div>",
+    "</div>"
+  ]
+}

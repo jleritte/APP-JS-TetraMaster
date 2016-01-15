@@ -365,11 +365,8 @@ var Tetra = {
   },
   buildPlayArea: function(){
     Tetra.game.className = 'game Playing';
-      .load('js/templates/playField.html','html');
-      $.get('js/templates/card.html', function (card) {
-        $('.game').append(card);
-        Tetra.renderCards();
-      },'html');
+    Tetra.game.innerHTML = this.playField.join('\n');//require('templates').playField.join('\n');
+    Tetra.game.appendchild(document.createElement('template').innerHTML = this.card.join('\n'));
   },
   renderCards: function(){
     var i = 0,
@@ -1090,6 +1087,51 @@ var Tetra = {
       "<div class=\"7 off up left\"></div>",
       "<div class=\"off value\"></div>",
       "<div class=\"off name\"></div>",
+    "</div>"
+  ],
+  playField: [
+    "<div>",
+      "<div class=\"score\">",
+        "<span class=\"p1\">0</span>",
+        "<span class=\"divide\">/</span>",
+        "<span class=\"p2\">0</span>",
+      "</div>",
+      "<div class=\"buttons\">",
+        "<ul>",
+          "<li class=\"menu\">Menu</li>",
+          "<li class=\"reload\">Reload</li>",
+        "</ul>",
+      "</div>",
+      "<div class=\"stack\"></div>",
+      "<div class=\"fieldBox\">",
+        "<table class=\"field\">",
+          "<tr class='a'>",
+            "<td data-local='a1'></td>",
+            "<td data-local='a2'></td>",
+            "<td data-local='a3'></td>",
+            "<td data-local='a4'></td>",
+          "</tr>",
+          "<tr class='b'>",
+            "<td data-local='b1'></td>",
+            "<td data-local='b2'></td>",
+            "<td data-local='b3'></td>",
+            "<td data-local='b4'></td>",
+          "</tr>",
+          "<tr class='c'>",
+            "<td data-local='c1'></td>",
+            "<td data-local='c2'></td>",
+            "<td data-local='c3'></td>",
+            "<td data-local='c4'></td>",
+          "</tr>",
+          "<tr class='d'>",
+            "<td data-local='d1'></td>",
+            "<td data-local='d2'></td>",
+            "<td data-local='d3'></td>",
+            "<td data-local='d4'></td>",
+          "</tr>",
+        "</table>",
+      "</div>",
+    "<div class=\"stack\"></div>",
     "</div>"
   ]
 };

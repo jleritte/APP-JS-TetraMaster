@@ -306,7 +306,6 @@ var Tetra = {
   setSelector: function(where){
     var temp;
     //TODO: Workout click events
-    console.log(document.querySelectorAll('.selector'));
     $('.selector').unbind('click').click(function(){
       if($(this).hasClass('left')){
         temp = where.cards.shift();
@@ -366,7 +365,10 @@ var Tetra = {
   buildPlayArea: function(){
     Tetra.game.className = 'game Playing';
     Tetra.game.innerHTML = this.playField.join('\n');//require('templates').playField.join('\n');
-    Tetra.game.appendchild(document.createElement('template').innerHTML = this.card.join('\n'));
+    var temp = document.createElement('template');
+    temp.className = 'card';
+    temp.innerHTML = this.card.join('\n')
+    Tetra.game.appendChild(temp);
   },
   renderCards: function(){
     var i = 0,

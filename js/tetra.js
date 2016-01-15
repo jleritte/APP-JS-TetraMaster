@@ -365,10 +365,11 @@ var Tetra = {
   buildPlayArea: function(){
     Tetra.game.className = 'game Playing';
     Tetra.game.innerHTML = this.playField.join('\n');//require('templates').playField.join('\n');
-    var temp = document.createElement('template');
+    var temp = document.createElement('template');//rquire('templates').card.join('\n');
     temp.className = 'card';
     temp.innerHTML = this.card.join('\n')
     Tetra.game.appendChild(temp);
+    Tetra.renderCards();
   },
   renderCards: function(){
     var i = 0,

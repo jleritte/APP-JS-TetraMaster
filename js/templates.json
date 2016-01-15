@@ -1,5 +1,5 @@
 {
-  "mainMenu": [
+  "mainScreen": [
     "<div>",
       "<div class=\"title\">TETRA MASTERS</div>",
       "<div class=\"menuContainer\">",
@@ -30,6 +30,8 @@
     "<div>",
       "<div class=\"gridContain\">",
         "<table class=\"grid\">",
+          "<tbody>",
+          "</tbody>",
         "</table>",
         "<ul>",
           "<li class=\"cCount\">Stock: <span>0</span></li>",
@@ -55,6 +57,29 @@
           "<li class=\"reload\">Reload</li>",
         "</ul>",
       "</div>",
+    "</div>"
+  ],
+  "cardSelectRow":[
+    "<tr class=\"cardGrid\">",
+    "</tr>"
+  ],
+  "cardSelectCell": [
+    "<td class=\"cardGrid ",-1,"\">",
+      "<div class=\"cardGridcont\"></div>",
+    "</td>"
+  ],
+  "card": [
+    "<div class=\"card off\" data-where=\"\" data-local=\"hand\">",
+      "<div class=\"0 off up\"></div>",
+      "<div class=\"1 off up right\"></div>",
+      "<div class=\"2 off right\"></div>",
+      "<div class=\"3 off down right\"></div>",
+      "<div class=\"4 off down\"></div>",
+      "<div class=\"5 off down left\"></div>",
+      "<div class=\"6 off left\"></div>",
+      "<div class=\"7 off up left\"></div>",
+      "<div class=\"off value\"></div>",
+      "<div class=\"off name\"></div>",
     "</div>"
   ]
 }

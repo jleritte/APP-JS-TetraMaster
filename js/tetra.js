@@ -64,15 +64,20 @@ var Tetra = {
   },
   //HTML or Visual Card
   HtmlCard: function(card,index){
-    cardDiv = $('.card.template').clone();
-    for (var arrow in card.arrws) {
-      if (card.arrws.hasOwnProperty(arrow)){
-        if(card.arrws[arrow]){
-          $(cardDiv).find('.'+arrow).addClass('arrow on');
-        }
+    cardDiv = document.querySelector('template.card').content.children[0].cloneNode(true);
+    Array.prototype.forEach.call(cardDiv.children,function(e,i){
+      if(card.arrws[i]){
+        e.className += ' arrow on';
       }
-    }
-    $(cardDiv).attr('data-where', index).attr('data-local', 'hand').find('.name').text(card.name).parent().find('.value').text(card.value);
+      if(e.className.match('name')){
+        e.innerHTML = card.name;
+      }
+      if(e.className.match('value')){
+        e.innerHTML = card.value;
+      }
+    });
+    cardDiv.setAttribute('data-where', index);
+    cardDiv.setAttribute('data-local', 'hand');
     return cardDiv;
   },
   //Html Challenger
@@ -158,7 +163,7 @@ var Tetra = {
   //Start Screen\Main Menu
   loadStartScreen: function(){
     Tetra.game.className = 'game main';
-    Tetra.game.innerHTML = this.mainScreen.join('');//require('templates').mainMenu.join('');
+    Tetra.game.innerHTML = this.mainScreen.join('\n');//require('templates').mainMenu.join('\n');
     Tetra.setMenuClicks();
   },
   //Menu Functionality
@@ -233,7 +238,7 @@ var Tetra = {
     var list;
     this.names = [];
     Tetra.game.className = 'game challengers';
-    Tetra.game.innerHTML = this.challengeScreen.join('');//require('templates').challengeScreen.join('');
+    Tetra.game.innerHTML = this.challengeScreen.join('\n');//require('templates').challengeScreen.join('\n');
     list = document.querySelector('.challengeList');
     for(i = 0;i < 10;i++){
       var li = document.createElement('li'),
@@ -261,10 +266,10 @@ var Tetra = {
   },
   loadCardSelectionScreen: function(){
     Tetra.game.className = 'game cards';
-    Tetra.game.innerHTML = this.cardSelectionScreen.join('');//require('templates').cardSelectionScreen.join('');
+    Tetra.game.innerHTML = this.cardSelectionScreen.join('\n');//require('templates').cardSelectionScreen.join('\n');
     var table = document.querySelector('table.grid').firstElementChild,i,j;
     for(i = 0;i < 10;i++){
-      table.innerHTML += this.cardSelectRow.join('');//require('templates').cardSelectRow.join('');
+      table.innerHTML += this.cardSelectRow.join('\n');//require('templates').cardSelectRow.join('\n');
       var row = table.lastElementChild;
       for(j = 0;j < 10;j++){
         var cell = this.cardSelectCell;//require('templates').cardSelectCell.join('');
@@ -286,17 +291,22 @@ var Tetra = {
     Tetra.fillPlayerInfo();
     Tetra.setButtons();
     Tetra.setSelectGrid();
-    $.get('js/templates/card.html', function (card) {
-      $('.game').append(card);
-    },'html');
+    var temp = document.createElement('template');
+    temp.className = 'card';
+    temp.innerHTML = this.card.join('\n');//require('templates').card.join('\n');
+    Tetra.game.appendChild(temp);
   },
   setSelectGrid: function(){
-    $('.full').click(function(){
-      Tetra.rendercardSelector(this);
+    Array.prototype.forEach.call(document.querySelectorAll('.full'),function(e){
+      e.addEventListener('click',function(){
+        Tetra.rendercardSelector(this);
+      });
     });
   },
   setSelector: function(where){
     var temp;
+    //TODO: Workout click events
+    console.log(document.querySelectorAll('.selector'));
     $('.selector').unbind('click').click(function(){
       if($(this).hasClass('left')){
         temp = where.cards.shift();
@@ -354,9 +364,7 @@ var Tetra = {
     });
   },
   buildPlayArea: function(){
-    $('.game')
-      .removeClass()
-      .addClass('game Playing')
+    Tetra.game.className = 'game Playing';
       .load('js/templates/playField.html','html');
       $.get('js/templates/card.html', function (card) {
         $('.game').append(card);
@@ -631,16 +639,16 @@ var Tetra = {
       }
     }
     if(where.className){
-      where = ($(where).attr('class'))?$(where).attr('class'):0;
+      where = where.className;
       where = where.split(' ');
-      where = where[1];
+      where = where[1].replace('C','');
       where = Tetra.collection[where];
     }
     $('.cardInfo').load('js/templates/cardInfo.html', function () {
       if(where.cards[0] !== 0){
         for(i = (where.cards.length <= 5)?where.cards.length-1:4;i > -1;i--){
           temp = new Tetra.HtmlCard(where.cards[i]);
-          $('.select').append($(temp).removeClass('off template').addClass('faceUp blue '+(i+1)).css({'left':i*10+45+'px','top':'5px'}));
+          $('.select').append($(temp).removeClass('off').addClass('faceUp blue '+(i+1)).css({'left':i*10+45+'px','top':'5px'}));
           Tetra.isFaceUp(temp);
         }
       }
@@ -1069,6 +1077,20 @@ var Tetra = {
     "<td class=\"cardGrid ",-1,"\">",
       "<div class=\"cardGridcont\"></div>",
     "</td>"
+  ],
+  card: [
+    "<div class=\"card off\" data-where=\"\" data-local=\"hand\">",
+      "<div class=\"0 off up\"></div>",
+      "<div class=\"1 off up right\"></div>",
+      "<div class=\"2 off right\"></div>",
+      "<div class=\"3 off down right\"></div>",
+      "<div class=\"4 off down\"></div>",
+      "<div class=\"5 off down left\"></div>",
+      "<div class=\"6 off left\"></div>",
+      "<div class=\"7 off up left\"></div>",
+      "<div class=\"off value\"></div>",
+      "<div class=\"off name\"></div>",
+    "</div>"
   ]
 };
 

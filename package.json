@@ -1,0 +1,28 @@
+{
+  "name": "tetra_masters",
+  "version": "1.0.0",
+  "description": "FFIX tetra masters mini game built for browser",
+  "main": "index.html",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jleritte/APP-JS-TetraMasters.git"
+  },
+  "author": "Jonathan Leritte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jleritte/APP-JS-TetraMasters/issues"
+  },
+  "homepage": "https://github.com/jleritte/APP-JS-TetraMasters#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-cssmin": "^1.0.0",
+    "grunt-contrib-imagemin": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}

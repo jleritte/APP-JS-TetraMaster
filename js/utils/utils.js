@@ -18,18 +18,11 @@ export function getWeigthed(list,weight){
 }
 
 export function convertValue(card){
-  var value = '',
-    temp = card.atk;
-  value += this.convertToHex(temp);
-  value += card.type;
-  temp = card.pdef;
-  value += this.convertToHex(temp);
-  temp = card.mdef;
-  value += this.convertToHex(temp);
-  return value;
+  const { atk, type, pdef, mdef } = card
+  return `${toHexNibble(atk)}${type}${toHexNibble(pdef)}${toHexNibble(mdef)}`
 }
 
-export function convertToHex(num){
+function toHexNibble(num){
   return (num >>> 4).toString(16)
 }
 

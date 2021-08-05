@@ -1,7 +1,7 @@
 var Tetra = {
   //Max number of cards
   max: 100,
-  //Arrays to Hold persistant Objects
+  //Arrays to Hold persistent Objects
   collection: [],
   gameCards: [],
   names: [],
@@ -179,7 +179,7 @@ var Tetra = {
       Tetra.loadOptionsMenu();
     });
   },
-  //Main Menu Fucntions
+  //Main Menu Functions
   startNewGame: function(){
     this.createStartCards();
     this.loadChallengers();
@@ -507,7 +507,7 @@ var Tetra = {
     for(var stat in Tetra.playerStats) {
        if (Tetra.playerStats.hasOwnProperty(stat)) {
          $('.'+stat).children().html(Tetra.playerStats[stat]+"&nbsp;");
-       } 
+       }
     }
     $('.cCount').children().text(Tetra.countCards());
     $('.type').children().text(Tetra.countTypes());
@@ -528,7 +528,7 @@ var Tetra = {
         count++;
       }
     }
-    return count;        
+    return count;
   },
   checkForGameEnd: function(fights){
     var p1 = parseInt($('.p1').attr('data-score'),10),
@@ -684,30 +684,12 @@ var Tetra = {
       });
     }
   },
-  getValue: function(min,max){
-    return Math.random() * (max-min) + min;
-  },
   getCardNumber: function(){
     var weights = [0.5,0.2,0.1,0.05,0.03,0.03,0.03,0.02,0.02,0.02],
       values = [1,2,3,4,5,6,7,8,9,10],
       num1 = this.getWeigthed(values,weights),
       num2 = this.getWeigthed(values,weights);
     return num1*num2;
-  },
-  getWeigthed: function(list,weight){
-    var total = weight.reduce(function(prev,cur,i,arr){
-      return prev + cur;
-    }),
-      random = this.getValue(0,total),
-      sum = 0,
-      i = 0;
-    for(i = 0; i < list.length;i++){
-      sum += weight[i];
-      sum = +sum.toFixed(2);
-      if(random <= sum){
-        return list[i];
-      }
-    }
   },
   getCardMaxes: function(card){
     var list = this.masterCardList[card.num-1];
@@ -717,53 +699,6 @@ var Tetra = {
     card.maxPdef = list[3];
     card.maxMdef = list[4];
     card.icon = list[5];
-  },
-  convertValue: function(card){
-    var value = '',
-      temp = card.atk;
-    value += this.convertToHex(temp);
-    value += card.type;
-    temp = card.pdef;
-    value += this.convertToHex(temp);
-    temp = card.mdef;
-    value += this.convertToHex(temp);
-    return value;
-  },
-  convertToHex: function(num){
-    if(num>=0&&num<=15){
-      num = 0;
-    }else if(num>=16&&num<=31){
-      num = 1;
-    }else if(num>=32&&num<=47){
-      num = 2;
-    }else if(num>=48&&num<=63){
-      num = 3;
-    }else if(num>=64&&num<=79){
-      num = 4;
-    }else if(num>=80&&num<=95){
-      num = 5;
-    }else if(num>=96&&num<=111){
-      num = 6;
-    }else if(num>=112&&num<=127){
-      num = 7;
-    }else if(num>=128&&num<=143){
-      num = 8;
-    }else if(num>=144&&num<=159){
-      num = 9;
-    }else if(num>=160&&num<=175){
-      num = 'A';
-    }else if(num>=176&&num<=191){
-      num = 'B';
-    }else if(num>=192&&num<=207){
-      num = 'C';
-    }else if(num>=208&&num<=223){
-      num = 'D';
-    }else if(num>=224&&num<=239){
-      num = 'E';
-    }else if(num>=240&&num<=255){
-      num = 'F';
-    }
-    return num;
   },
   setArrows: function(card){
     var count = card.arrwNum,
@@ -784,18 +719,6 @@ var Tetra = {
       }
       if(total < 0){break;}
     }
-  },
-  getPrimes: function(max) {
-    var sieve = [], i, j, primes = [];
-    for (i = 2; i <= max; ++i) {
-      if (!sieve[i]) {
-        primes.push(i);
-        for (j = i << 1; j <= max; j += i) {
-          sieve[j] = true;
-        }
-      }
-    }
-    return primes;
   },
   checkForAttack: function(card){
     var arrows = this.gameCards[$(card).attr('data-where')].arrws,
@@ -980,162 +903,6 @@ var Tetra = {
       }
     }
     return group;
-  },
-  largest: function(card){
-    var attack = card.atk;
-    if(card.pdef > attack){
-      attack = card.pdef;
-    }
-    if(card.mdef > attack){
-      attack = card.mdef;
-    }
-    return attack;
-  },
-  smaller: function(card){
-    var defense = card.pdef;
-    if(card.mdef < defense){
-      defense = card.mdef;
-    }
-    return defense;
-  },
-  smallest: function(card){
-    var defense = card.atk;
-    if(card.pdef < defense){
-      defense = card.pdef;
-    }
-    if(card.mdef < defense){
-      defense = card.mdef;
-    }
-    return defense;
-  },
-  //will be moved to templates file
-  mainScreen: [
-    "<div>",
-      "<div class=\"title\">TETRA MASTERS</div>",
-      "<div class=\"menuContainer\">",
-        "<ul>",
-          "<li class=\"menuButton\">NEW GAME</li>",
-          "<li class=\"menuButton\">CONTINUE</li>",
-          "<li class=\"menuButton\">OPTIONS</li>",
-        "</ul>",
-      "</div>",
-    "</div>"
-  ],
-  challengeScreen: [
-    "<div>",
-      "<div class=\"header\">Please Select Opponent</div>",
-      "<div class=\"challengerContain\">",
-        "<ul class=\"challengeList\">",
-        "</ul>",
-      "</div>",
-      "<div class=\"buttons\">",
-        "<ul>",
-          "<li class=\"menu\">Menu</li>",
-          "<li class=\"reload\">Reload</li>",
-        "</ul>",
-      "</div>",
-    "</div>"
-  ],
-  cardSelectionScreen: [
-    "<div>",
-      "<div class=\"gridContain\">",
-        "<table class=\"grid\">",
-          "<tbody>",
-          "</tbody>",
-        "</table>",
-        "<ul>",
-          "<li class=\"cCount\">Stock: <span>0</span></li>",
-          "<li class=\"type\">Type: <span>0</span></li>",
-        "</ul>",
-      "</div>",
-      "<div class=\"playerInfo\">",
-        "<ul>",
-          "<li class=\"collectorLvl\">Collector <span>LV</span>: <span class=\"wld\">1700p</span>",
-            "<span class=\"rank\">Beginner</span></li>",
-          "<hr />",
-          "<li class=\"wins\">Wins:<span class=\"wld\">0 </span></li>",
-          "<li class=\"losses\">Losses:<span class=\"wld\">0 </span></li>",
-          "<li class=\"draws\">Draws:<span class=\"wld\">0 </span></li>",
-        "</ul>",
-      "</div>",
-      "<div class=\"cardInfo\">",
-      "</div>",
-      "<div class=\"tempHand\"></div>",
-      "<div class=\"buttons\">",
-        "<ul>",
-          "<li class=\"menu\">Menu</li>",
-          "<li class=\"reload\">Reload</li>",
-        "</ul>",
-      "</div>",
-    "</div>"
-  ],
-  cardSelectRow:[
-    "<tr class=\"cardGrid\">",
-    "</tr>"
-  ],
-  cardSelectCell: [
-    "<td class=\"cardGrid ",-1,"\">",
-      "<div class=\"cardGridcont\"></div>",
-    "</td>"
-  ],
-  card: [
-    "<div class=\"card off\" data-where=\"\" data-local=\"hand\">",
-      "<div class=\"0 off up\"></div>",
-      "<div class=\"1 off up right\"></div>",
-      "<div class=\"2 off right\"></div>",
-      "<div class=\"3 off down right\"></div>",
-      "<div class=\"4 off down\"></div>",
-      "<div class=\"5 off down left\"></div>",
-      "<div class=\"6 off left\"></div>",
-      "<div class=\"7 off up left\"></div>",
-      "<div class=\"off value\"></div>",
-      "<div class=\"off name\"></div>",
-    "</div>"
-  ],
-  playField: [
-    "<div>",
-      "<div class=\"score\">",
-        "<span class=\"p1\">0</span>",
-        "<span class=\"divide\">/</span>",
-        "<span class=\"p2\">0</span>",
-      "</div>",
-      "<div class=\"buttons\">",
-        "<ul>",
-          "<li class=\"menu\">Menu</li>",
-          "<li class=\"reload\">Reload</li>",
-        "</ul>",
-      "</div>",
-      "<div class=\"stack\"></div>",
-      "<div class=\"fieldBox\">",
-        "<table class=\"field\">",
-          "<tr class='a'>",
-            "<td data-local='a1'></td>",
-            "<td data-local='a2'></td>",
-            "<td data-local='a3'></td>",
-            "<td data-local='a4'></td>",
-          "</tr>",
-          "<tr class='b'>",
-            "<td data-local='b1'></td>",
-            "<td data-local='b2'></td>",
-            "<td data-local='b3'></td>",
-            "<td data-local='b4'></td>",
-          "</tr>",
-          "<tr class='c'>",
-            "<td data-local='c1'></td>",
-            "<td data-local='c2'></td>",
-            "<td data-local='c3'></td>",
-            "<td data-local='c4'></td>",
-          "</tr>",
-          "<tr class='d'>",
-            "<td data-local='d1'></td>",
-            "<td data-local='d2'></td>",
-            "<td data-local='d3'></td>",
-            "<td data-local='d4'></td>",
-          "</tr>",
-        "</table>",
-      "</div>",
-    "<div class=\"stack\"></div>",
-    "</div>"
-  ]
+  }
 };
 

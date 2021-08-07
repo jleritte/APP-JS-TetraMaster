@@ -1,8 +1,18 @@
+import Card from './Card.js'
+// import {
+//   getValue,
+//   getWeighted,
+// } from './utils/utils.js'
 
 
-
-//move to A 1.65%
-//move to X 0.56%
+window.test = new Card(75)
+console.log(test)
+console.log(test.value)
+console.log(test.name)
+console.log(test.arrows)
+console.log(test.type)
+console.log(test.attack)
+console.log(test.getDefense(test.type))
 // var Tetra = {
 //   //Max number of cards
 //   max: 100,
@@ -19,26 +29,6 @@
 //   game: '',
 //   opponent: '',
 //   //Object templates
-//   //Card Data
-//   Card: function(num){
-//     this.num = num?num:Tetra.getCardNumber();
-//     this.name = null;
-//     this.maxAtk = 0;
-//     this.type = null;
-//     this.maxPdef = 0;
-//     this.maxMdef = 0;
-//     this.icon = "z";
-//     Tetra.getCardMaxes(this);
-//     this.atk = Math.floor(Tetra.getValue(0,this.maxAtk));
-//     this.pdef = Math.floor(Tetra.getValue(0,this.maxPdef));
-//     this.mdef = Math.floor(Tetra.getValue(0,this.maxMdef));
-//     this.arrwNum = Math.floor(Tetra.getValue(0,9));
-//     this.arrws = [];
-//     this.batWon = 2000;
-//     this.batLvl = 10;
-//     this.value = Tetra.convertValue(this);
-//     Tetra.setArrows(this);
-//   },
 //   //Card Store
 //   CardStore: function(type){
 //     this.type = type;
@@ -49,10 +39,10 @@
 //   PlayArea: function(){
 //     this.area = [];
 //     var count = 15,
-//     blocks = Math.floor(Tetra.getValue(0,7));
+//     blocks = Math.floor(getValue(0,7));
 //     while(true){
 //       if(blocks > 0){
-//         var temp = Math.floor(Tetra.getValue(0,16));
+//         var temp = Math.floor(getValue(0,16));
 //         if(!this.area[temp]){
 //           this.area[temp] = true;
 //           blocks--;
@@ -345,42 +335,6 @@
 //       });
 //     }
 //   },
-//   getCardNumber: function(){
-//     var weights = [0.5,0.2,0.1,0.05,0.03,0.03,0.03,0.02,0.02,0.02],
-//       values = [1,2,3,4,5,6,7,8,9,10],
-//       num1 = this.getWeigthed(values,weights),
-//       num2 = this.getWeigthed(values,weights);
-//     return num1*num2;
-//   },
-//   getCardMaxes: function(card){
-//     var list = this.masterCardList[card.num-1];
-//     card.name = list[0];
-//     card.maxAtk = list[1];
-//     card.type = list[2];
-//     card.maxPdef = list[3];
-//     card.maxMdef = list[4];
-//     card.icon = list[5];
-//   },
-//   setArrows: function(card){
-//     var count = card.arrwNum,
-//       total = 7;
-//     while(true){
-//       if(count > 0){
-//         var temp = Math.floor(this.getValue(0,8));
-//         if(!card.arrws[temp]){
-//           card.arrws[temp] = true;
-//           count--;
-//         }
-//       }
-//       else{
-//         if(!card.arrws[total]){
-//           card.arrws[total] = false;
-//         }
-//         total--;
-//       }
-//       if(total < 0){break;}
-//     }
-//   },
 //   checkForAttack: function(card){
 //     var arrows = this.gameCards[$(card).attr('data-where')].arrws,
 //       where = $(card).attr('data-local'),
@@ -471,16 +425,16 @@
 //         case 'P':
 //         case 'M':
 //         case 'X':   attack = attckr.atk; break;
-//         case 'A':   attack = Tetra.largest(attckr); break;
+//         case 'A':   attack = largest(attckr); break;
 //       }
 //       switch(type){
 //         case 'P':   defense = attckd.pdef; break;
 //         case 'M':   defense = attckd.mdef; break;
-//         case 'X':   defense = Tetra.smaller(attckd); break;
-//         case 'A':   defense = Tetra.smallest(attckd); break;
+//         case 'X':   defense = smaller(attckd); break;
+//         case 'A':   defense = smallest(attckd); break;
 //       }
-//       attack -= Math.floor(Tetra.getValue(0,attack+1));
-//       defense -= Math.floor(Tetra.getValue(0,defense+1));
+//       attack -= Math.floor(getValue(0,attack+1));
+//       defense -= Math.floor(getValue(0,defense+1));
 //       console.log('Attack: '+attack+'\nDefense: '+defense);
 //       if(attack > defense){
 //         Tetra.capture(attacked,attacker,0);

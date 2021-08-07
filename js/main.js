@@ -13,6 +13,9 @@ console.log(test.arrows)
 console.log(test.type)
 console.log(test.attack)
 console.log(test.getDefense(test.type))
+console.log(`${test}`)
+window.copyCard = new Card(`${test}`)
+window.test1 = new Card()
 // var Tetra = {
 //   //Max number of cards
 //   max: 100,

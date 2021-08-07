@@ -7,6 +7,9 @@ export default class CardStore {
       cards: []
     })
   }
+  get num() {
+    return stores.get(this).num
+  }
   get peek() {
     return stores.get(this).cards[0]
   }
@@ -30,5 +33,8 @@ export default class CardStore {
     const { cards, num } = stores.get(this)
     if(card.num === num) return cards.push(card)
     console.warn("Card Does not match Store Number")
+  }
+  toString() {
+    return stores.get(this).cards.join("|")
   }
 }

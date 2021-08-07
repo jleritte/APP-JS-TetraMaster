@@ -1,34 +1,34 @@
-import Card from './Card.js'
+import Player from './Player.js'
+// import Card from './Card.js'
+// import CardStore from './CardStore.js'
 // import {
 //   getValue,
 //   getWeighted,
 // } from './utils/utils.js'
 
-
-window.test = new Card(75)
-console.log(test)
-console.log(test.value)
-console.log(test.name)
-console.log(test.arrows)
-console.log(test.type)
-console.log(test.attack)
-console.log(test.getDefense(test.type))
-console.log(`${test}`)
-window.copyCard = new Card(`${test}`)
-window.test1 = new Card()
+window.player = new Player()
+console.log(`${Object.keys(player.collection)}`)
+// window.test = new Card(75)
+// console.log(test)
+// console.log(test.value)
+// console.log(test.name)
+// console.log(test.arrows)
+// console.log(test.type)
+// console.log(test.attack)
+// console.log(test.getDefense(test.type))
+// console.log(`${test}`)
+// window.copyCard = new Card(`${test}`)
+// window.test1 = new Card()
+// let store = new CardStore(75)
+// store.card = test
+// store.card = copyCard
+// console.log(`${store.peek}`)
+// console.log(`${store}`)
 // var Tetra = {
-//   //Max number of cards
-//   max: 100,
 //   //Arrays to Hold persistent Objects
-//   collection: [],
 //   gameCards: [],
 //   names: [],
 //   area: [],
-//   playerStats: {
-//     "wins":0,
-//     "losses":0,
-//     "draws":0
-//   },
 //   game: '',
 //   opponent: '',
 //   //Object templates

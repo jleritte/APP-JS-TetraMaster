@@ -1,4 +1,4 @@
-import { getValue, getWeighted } from './utils/utils.js'
+import { getValue, getWeighted, toHex } from './utils/utils.js'
 import { masterCardList } from './cardList.js'
 
 const cards = new WeakMap(),
@@ -41,7 +41,10 @@ export default class Card {
   get icon() {
     return masterCardList[cards.get(this).num][5]
   }
-  promote() {
+  get num() {
+    return cards.get(this).num
+  }
+  get promote() {
     const card = cards.get(this),
       stat = ['atk', 'pdef', 'mdef'][getValue(0, 2)],
       typeUp = Math.random(),
@@ -62,7 +65,7 @@ export default class Card {
   }
   toString() {
     const { num, type, atk, pdef, mdef, arrws } = cards.get(this)
-    return [num, type, atk, pdef, mdef, arrws.join(':')].join(':')
+    return [num, type, atk, pdef, mdef, ...arrws].map(x => toHex(x)).join(':')
   }
 }
 
@@ -70,7 +73,7 @@ export default class Card {
 function parse(cardString) {
   if (typeof cardString === 'number') return cardString
   if (!cardString?.length) return undefined
-  const values = cardString.split(':').map(x => +x)
+  const values = cardString.split(':').map(x => parseInt(x, 16))
   return {
     num: values.shift(),
     type: values.shift(),
@@ -93,9 +96,9 @@ function getArrows() {
 
 function toValue(card) {
   const { atk, type, pdef, mdef } = card
-  return `${toHexGroup(atk)}${types[type]}${toHexGroup(pdef)}${toHexGroup(mdef)}`
+  return `${toHexNyble(atk)}${types[type]}${toHexNyble(pdef)}${toHexNyble(mdef)}`
 }
 
-function toHexGroup(num) {
+function toHexNyble(num) {
   return (num >>> 4).toString(16)
 }

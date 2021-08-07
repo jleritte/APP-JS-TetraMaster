@@ -32,12 +32,6 @@ window.test1 = new Card()
 //   game: '',
 //   opponent: '',
 //   //Object templates
-//   //Card Store
-//   CardStore: function(type){
-//     this.type = type;
-//     this.cards = [];
-//     this.shifted = 1;
-//   },
 //   //Play Area
 //   PlayArea: function(){
 //     this.area = [];

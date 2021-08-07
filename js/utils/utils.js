@@ -12,3 +12,7 @@ export function getWeighted(list, weight) {
     return list[i]
   }, 0)
 }
+
+export function toHex(num) {
+  return num.toString(16).padStart(2, '0')
+}

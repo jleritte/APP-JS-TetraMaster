@@ -1,3 +1,41 @@
+.play-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: green;
+  display: flex;
+}
+.section {
+    height: 100%;
+    width: 20vw;
+}
+.section:nth-child(2) {
+    background: rgba(255,255,0,0.5);
+    width: 60vw;
+}
+.card {
+  height: 19vh;
+  aspect-ratio: 9 / 14;
+  position: relative;
+}
+.card:first-of-type {
+  margin-top: 2.5vh;
+}
+.card.stacked {
+  margin-top: -15.2vh;
+}
+.contain {
+  height: 100vh;
+  padding-left: 1vw;
+}
+.contain:first-of-type {
+  padding-top: 50vh;
+}
+body {
+  display: flex;
+}
 /*Tag styles*/
 DIV, BODY, HTML, SPAN, TD{
   margin: 0;
@@ -37,7 +75,6 @@ UL
   font-family: "tetra_fonts";
   font-style: normal;
   font-weight: normal;
-  speak: none;
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
@@ -116,43 +153,43 @@ UL
   content: '\e803';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .icon-m:before{
   content: '\e801';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .icon-w:before{
   content: '\e800';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .icon-s:before{
   content: '\e802';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .icon-c:before{
   content: '\e805';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .icon-u:before{
   content: '\e804';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .icon-o:before{
   content: '\e806';
   font-size: 18pt;
   position: absolute;
-  left: 7px; 
+  left: 7px;
 }
 .stack{
   float: right;
@@ -178,14 +215,27 @@ UL
   background: url('../images/drock029.jpg');
 }
 .card {
-  padding: 7px;
-  height: 150px;
-  width: 100px;
-  background: -moz-radial-gradient(center, ellipse cover,rgba(102,85,34,0) 40%,rgba(102,85,34,1) 65%),#874;
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(102,85,34,0) 40%,rgba(102,85,34,1) 65%),#874;
+ background:
+    radial-gradient(100% 100% at 50% 50%,transparent 10%, #874 10%, #874 15%, black 15%, black 17%, transparent 17%),
+    conic-gradient(blue 25%, red 25%, red 50%, blue 50%, blue 75%, red 75%) 50% / 20% 20%,
+    conic-gradient(from 45deg, red 0.5%, transparent 0.5%, transparent 24.5%, blue 24.5%, blue 25.5%, transparent 25.5%, transparent 49.5%, red 49.5%, red 50.5%, transparent 50.5%, transparent 74.5%, blue 74.5%, blue 75.5%, transparent 75.5%, transparent 99.5%, red 99.5%) 50% / 77.5% 50%,
+    conic-gradient(from 45deg, blue 1.5%, transparent 1.5%, transparent 23.5%, red 23.5%, red 26.5%, transparent 26.5%, transparent 48.5%, blue 48.5%, blue 51.5%, transparent 51.5%, transparent 73.5%, red 73.5%, red 76.5%, transparent 76.5%, transparent 98.5%, blue 98.5%) 50% / 77.5% 50%,
+    conic-gradient(from 22deg, #541 0.5%, transparent 0.5%, transparent 12%, #541 12%, #541 13%, transparent 13%, transparent 24.5%, #541 24.5%, #541 25.5%, transparent 25.5%, transparent 37%, #542 37%, #541 38%, transparent 38%, transparent 49.5%, #541 49.5%, #541 50.5%, transparent 50.5%, transparent 62%, #541 62%, #542 63%, transparent 63%, transparent 74.5%, #542 74.5%, #541 75.5%, transparent 75.5%, transparent 87%, #541 87%, #541 88%, transparent 88%, transparent 99.5%, #541 99.5%) 50% / 80% 75%,
+    linear-gradient(45deg, #874 20%, transparent 0%) 50% / 100% 100%,
+    linear-gradient(-45deg, #874 20%, transparent 0%) 50% / 100% 100%,
+    linear-gradient(135deg, #874 20%, transparent 0%) 50% / 100% 100%,
+    linear-gradient(-135deg, #874 20%, transparent 0%) 50% / 100% 100%,
+    linear-gradient(45deg, #874 20%, transparent 10%) -35% 9% / 50% 50%,
+    linear-gradient(135deg, #874 20%, transparent 10%) -35% 90% / 50% 50%,       linear-gradient(-45deg, #874 20%, transparent 10%) 135% 9% / 50% 50%,
+    linear-gradient(-135deg, #874 20%, transparent 10%) 135% 90% / 50% 50%,
+    conic-gradient(from 0deg, red 0.5%, transparent 0.5%, transparent 24.5%, blue 24.5%, blue 25.5%, transparent 25.5%, transparent 49.5%, red 49.5%, red 50.5%, transparent 50.5%, transparent 74.5%, blue 74.5%, blue 75.5%, transparent 75.5%, transparent 99.5%, red 99.5%) 50% / 100% 100%,
+    conic-gradient(from 0deg, blue 1.5%, transparent 1.5%, transparent 23.5%, red 23.5%, red 26.5%, transparent 26.5%, transparent 48.5%, blue 48.5%, blue 51.5%, transparent 51.5%, transparent 73.5%, red 73.5%, red 76.5%, transparent 76.5%, transparent 98.5%, blue 98.5%) 50% / 100% 100%,
+    radial-gradient(100% 100% at 50% 50%, rgba(102, 85, 34, 1) 39%, black 39%, black 41%, transparent 41%),
+    #874;
+  background-repeat: no-repeat;
   border: 3px solid #541;
-  border-radius: 3%;
-  position: absolute;
+  border-radius: 5px;
+  /*position: absolute;*/
   box-shadow: 5px 5px 10px rgba(10,10,10,0.5);
   transition: all .3s;
 }
@@ -381,12 +431,6 @@ UL
 }
 /*End Main Menu Styles*/
 /*Challenger Screen*/
-.challengeContain {
-}
-.challengeList {
-  -webkit-columns: 2;
-  -moz-columns: 2;
-}
 .challengeList:hover > li {
   opacity: 0.3;
   color: #b8860b;
@@ -632,7 +676,7 @@ UL
 .l.b2 {
   top: 169px;
   left: 240px;
-} 
+}
 .l.b3 {
   top: 169px;
   left: 351px;
@@ -679,8 +723,6 @@ UL
 .played {
   box-shadow: 0 0;
 }
-.on {
-}
 .off {
   display: none;
 }
@@ -689,12 +731,6 @@ UL
   border-color: transparent;
   text-shadow: 0 0 transparent;
   background-color: transparent;
-}
-.back {
-}
-.hand {
-}
-.faceUp{
 }
 .temp{
   background-color: #000;

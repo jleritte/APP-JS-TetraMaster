@@ -50,11 +50,18 @@ export default class Card {
       typeUp = Math.random(),
       maxStat = masterCardList[card.num][statMap[stat]]
 
+    this.victor = 0
     card[stat] = card[stat] < maxStat ? card[stat] + 1 : maxStat
     card.type = promoteOdds[card.type] > typeUp
       ? card.type < 2 ? 2 : 3
       : card.type
     return this.value
+  }
+  get victor() {
+    return cards.get(this).victor ?? 0
+  }
+  set victor(state) {
+    cards.get(this).victor = state
   }
   getDefense(type) {
     const { atk, pdef, mdef } = cards.get(this)

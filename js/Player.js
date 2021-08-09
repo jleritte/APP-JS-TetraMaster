@@ -1,16 +1,14 @@
-import Card from './Card.js'
-import CardStore from './CardStore.js'
+import Collection from './Collection.js'
 
-const players = new WeakMap(),
-  maxCards = 100
+const players = new WeakMap()
 
+// Create Collection class
 export default class Player {
   constructor(id) {
     id = id ?? generateId()
-    const player = parse(id)
-    players.set(this, player ?? {
+    players.set(this, parse(id) ?? {
       id,
-      collection: generateCollection(),
+      collection: new Collection(),
       wins: 0,
       losses: 0,
       draws: 0
@@ -22,13 +20,36 @@ export default class Player {
   get collection() {
     return players.get(this).collection
   }
+  get gameStats() {
+    const { wins, losses, draws } = players.get(this)
+    return {wins,losses,draws}
+  }
+  get lose() {
+    return ++players.get(this).losses
+  }
+  get win() {
+    return ++players.get(this).win
+  }
+  get draw() {
+    return ++players.get(this).draws
+  }
+  toString() {
+    const { collection, wins, losses, draws } = players.get(this)
+    return [wins,losses,draws,collection].join(',')
+  }
 }
 
 // Helper Functions
 function parse(id) {
-  const saved = localStorage.getItem(id)
-  if(!saved) return null
-  return {}
+  const saved = (localStorage.getItem(id) ?? "").split(',')
+  if(saved.length < 2) return null
+  return {
+    id,
+    wins: +saved.shift(),
+    losses: +saved.shift(),
+    draws: +saved.shift(),
+    collection: new Collection(saved)
+  }
 }
 
 function generateId() {
@@ -40,12 +61,3 @@ function generateId() {
   })
 }
 
-function generateCollection() {
-  const cards = new Array(10).fill(0).map(_ => new Card()),
-    stores = cards.reduce((acc, cur) => {
-      if(!acc[cur.num]) acc[cur.num] = new CardStore(cur.num)
-      acc[cur.num].card = cur
-      return acc
-    }, {})
-  return stores
-}

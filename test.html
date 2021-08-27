@@ -27,27 +27,79 @@
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
+      <div class="cell">
+        <div class="card blue"></div>
+      </div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
+      <div class="cell block"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
+      <div class="cell block"></div>
     </div>
   </div>
   <div class="section">
-    <div class="card blue"></div>
-    <div class="card red"></div>
-    <div class="card green"></div>
-    <div class="card silver"></div>
-    <div class="card gold"></div>
+    <div class="hand">
+      <div class="card blue"></div>
+    </div>
+    <div class="hand">
+      <div class="card red"></div>
+    </div>
+    <div class="hand">
+      <div class="card green"></div>
+    </div>
+    <div class="hand">
+      <div class="card silver"></div>
+    </div>
+    <div class="hand">
+      <div class="card gold"></div>
+    </div>
   </div>
 </div>
+<script>
+  const cards = document.querySelectorAll(".card"),
+    cells = document.querySelectorAll(".board > .cell")
+  const copyCard = (cell, card) => {
+    if(cell.children.length === 1) return
+    let newCard = document.createElement('div')
+    newCard.className = card.className
+    cell.appendChild(newCard)
+    newCard.classList.remove('play')
+    newCard.classList.remove('stacked')
+    card.parentNode.removeChild(card)
+  }
+  cards.forEach(c => {
+    c.onclick = e => {
+      const card = e.target,
+        rect = card.getBoundingClientRect()
+      cards.forEach(c => c.classList.remove('play'))
+      card.classList.toggle('play')
+    }
+  })
+  cells.forEach(c => {
+    c.onclick = e => {
+      const card = document.querySelector('.card.play'),
+        rect = e.target.getBoundingClientRect()
+      if(card) {
+        const cardRect = card.getBoundingClientRect()
+        card.style.setProperty('--pos','absolute')
+        card.style.setProperty('--top',`${cardRect.top}px`)
+        card.style.setProperty('--left',`${cardRect.left}px`)
+        setTimeout(_ => {
+          card.style.setProperty('--top',`${rect.top}px`)
+          card.style.setProperty('--left',`${rect.left}px`)
+        },0)
+        card.ontransitionend = e => {
+          copyCard(c, e.target)
+        }
+      }
+    }
+  })
+</script>
 </body>
 </html>

@@ -17,7 +17,7 @@ export default class Card {
       atk: getValue(0, atkMax),
       pdef: getValue(0, pdefMax),
       mdef: getValue(0, mdefMax),
-      arrws: getArrows()
+      arrws: getValue(0, 255)
     }
     cards.set(this, card)
   }

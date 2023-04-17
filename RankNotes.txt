@@ -39,3 +39,9 @@ Level 	Points 	Rank Name
 30 	1690 	Pro
 31 	1698 	Master
 32 	1700 	The Collector
+
+
+
+Game mechanics https://finalfantasy.fandom.com/wiki/Tetra_Master_(minigame)
+Deck Lists https://finalfantasy.fandom.com/wiki/Final_Fantasy_IX_opponents%27_Tetra_Master_decks
+Card List https://finalfantasy.fandom.com/wiki/Final_Fantasy_IX_Tetra_Master_cards

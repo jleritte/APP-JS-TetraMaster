@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tetra Style Tests</title>
   <link rel="stylesheet" type="text/css" href="./css/tetra.css">
+  <link rel="stylesheet" type="text/css" href="./css/card.css">
 </head>
 <body>
 <div class="play-area">
@@ -27,38 +28,35 @@
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
-      <div class="cell">
-        <div class="card blue"></div>
-      </div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
-      <div class="cell block"></div>
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
-      <div class="cell block"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
     </div>
   </div>
   <div class="section">
-    <div class="hand">
-      <div class="card blue"></div>
+    <div class="card blue">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-    <div class="hand">
-      <div class="card red"></div>
-    </div>
-    <div class="hand">
-      <div class="card green"></div>
-    </div>
-    <div class="hand">
-      <div class="card silver"></div>
-    </div>
-    <div class="hand">
-      <div class="card gold"></div>
-    </div>
+    <div class="card red"></div>
+    <div class="card green"></div>
+    <div class="card silver"></div>
+    <div class="card gold"></div>
   </div>
 </div>
 <script>
@@ -74,6 +72,16 @@
     card.parentNode.removeChild(card)
   }
   cards.forEach(c => {
+    if (c.classList.contains('blue')) {
+      let combo = (Math.random() * 256) | 0
+      c.classList.add(combo)
+      console.log(combo.toString(2).padStart(8,"0"))
+      combo.toString(2).padStart(8,"0").split("").reverse().forEach((e,i) => {
+        if (+e == 1) {
+          c.children[i].classList.add('arrow')
+        }
+      });
+    }
     c.onclick = e => {
       const card = e.target,
         rect = card.getBoundingClientRect()
@@ -81,7 +89,13 @@
       card.classList.toggle('play')
     }
   })
+  blocks = Math.random() * 7 | 0
+  console.log(blocks)
   cells.forEach(c => {
+    if(blocks && Math.round(Math.random() * 1)) {
+      c.classList.add('block')
+      blocks--
+    }
     c.onclick = e => {
       const card = document.querySelector('.card.play'),
         rect = e.target.getBoundingClientRect()
@@ -93,6 +107,8 @@
         setTimeout(_ => {
           card.style.setProperty('--top',`${rect.top}px`)
           card.style.setProperty('--left',`${rect.left}px`)
+          card.style.setProperty('--mar-top','0')
+          card.style.setProperty('--mar-left','0')
         },0)
         card.ontransitionend = e => {
           copyCard(c, e.target)

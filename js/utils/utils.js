@@ -39,5 +39,5 @@ export function hexToRange(value) {
 }
 
 export function arrowToBits(num) {
-  return num.toString(2),padStart(8,"0").split("").reverse()
+  return num.toString(2),padStart(8,"0").split("")
 }

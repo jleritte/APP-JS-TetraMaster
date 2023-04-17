@@ -1,4 +1,4 @@
-import { getValue, getWeighted, toHex } from './utils/utils.js'
+import { getValue, getWeighted, toHex, hexToRange } from './utils/utils.js'
 import { masterCardList } from './cardList.js'
 
 const cards = new WeakMap(),
@@ -14,9 +14,9 @@ export default class Card {
     card = typeof card === "object" ? card : {
       num,
       type,
-      atk: getValue(0, atkMax),
-      pdef: getValue(0, pdefMax),
-      mdef: getValue(0, mdefMax),
+      atk: getValue(...hexToRange(atkMax[0])),
+      pdef: getValue(...hexToRange(pdefMax[0])),
+      mdef: getValue(...hexToRange(mdefMax[0])),
       arrws: getValue(0, 255)
     }
     cards.set(this, card)
@@ -48,7 +48,7 @@ export default class Card {
     const card = cards.get(this),
       stat = ['atk', 'pdef', 'mdef'][getValue(0, 2)],
       typeUp = Math.random(),
-      maxStat = masterCardList[card.num][statMap[stat]]
+      maxStat = hexToRange(masterCardList[card.num][statMap[stat][1]])[1]
 
     this.victor = 0
     card[stat] = card[stat] < maxStat ? card[stat] + 1 : maxStat
@@ -72,7 +72,7 @@ export default class Card {
   }
   toString() {
     const { num, type, atk, pdef, mdef, arrws } = cards.get(this)
-    return [num, type, atk, pdef, mdef, ...arrws].map(x => toHex(x)).join(':')
+    return [num, type, atk, pdef, mdef, arrws].map(x => toHex(x)).join(':')
   }
 }
 
@@ -95,10 +95,6 @@ function getCardNumber() {
   var weights = [0.6, 0.2, 0.05, 0.05, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01],
     values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   return getWeighted(values, weights) * getWeighted(values, weights) - 1
-}
-
-function getArrows() {
-  return new Array(8).fill(0).map(_ => getValue(0, 1))
 }
 
 function toValue(card) {

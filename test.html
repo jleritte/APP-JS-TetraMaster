@@ -18,8 +18,8 @@
       <div class="card stacked"></div>
     </div>
     <div class="score">
-      <div class="p1">0</div>
-      <div class="p2">0</div>
+      <div class="p1">10</div>
+      <div class="p2">10</div>
     </div>
   </div>
   <div class="section">
@@ -66,17 +66,18 @@
     if(cell.children.length === 1) return
     let newCard = document.createElement('div')
     newCard.className = card.className
-    cell.appendChild(newCard)
-    newCard.classList.remove('play')
-    newCard.classList.remove('stacked')
-    card.parentNode.removeChild(card)
+    cell.appendChild(card)
+    card.classList.remove('play')
+    card.classList.remove('stacked')
+    // newCard.children = card.children
+    // card.parentNode.removeChild(card)
   }
   cards.forEach(c => {
     if (c.classList.contains('blue')) {
       let combo = (Math.random() * 256) | 0
       c.classList.add(combo)
       console.log(combo.toString(2).padStart(8,"0"))
-      combo.toString(2).padStart(8,"0").split("").reverse().forEach((e,i) => {
+      combo.toString(2).padStart(8,"0").split("").forEach((e,i) => {
         if (+e == 1) {
           c.children[i].classList.add('arrow')
         }

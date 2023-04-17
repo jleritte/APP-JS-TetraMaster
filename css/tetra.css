@@ -27,6 +27,7 @@
 }
 .score {
   aspect-ratio: 1.3854 / 1;
+  font-style: italic;
   background:
     radial-gradient(80% 100% at 50% 50%, rgb(var(--dark-brown)) 1%, rgb(var(--lite-brown)), rgb(var(--mid-brown)) 3.5%, transparent 4%, transparent 7%, rgb(var(--mid-brown)) 8%, rgb(var(--lite-brown)),  rgb(var(--mid-brown)) 10%, transparent 12%),
     radial-gradient(80% 100% at 41.5% 58.5%, rgb(var(--lite-brown)) 1%, rgb(var(--mid-brown)), rgb(var(--dark-brown)) 3.5%, transparent 4%),
@@ -62,7 +63,7 @@
   grid-gap: var(--half-border);
 }
 .cell {
-  aspect-ratio: 9 / 14;
+  aspect-ratio: 14 / 17;
   height: 19vh;
   border: var(--half-border) solid mediumpurple;
   position: relative;

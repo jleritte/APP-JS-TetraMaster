@@ -6,13 +6,13 @@
   --lite-brown: 121, 85, 72;
   --black: 10, 10, 10;
   --arrow: 255, 255, 255;
-  --border: 6px;
+  --border: 0.7vh;
   --half-border: calc(var(--border) / 2);
   --face-color: 0, 0, 0;
 }
 .card {
   height: 19vh;
-  aspect-ratio: 9 / 14;
+  aspect-ratio: 14 / 17;
   position: relative;
   background:
     radial-gradient(100% 100% at 50% 50%,transparent 10%, rgb(var(--lite-brown)) 11%, rgb(var(--lite-brown)) 15%, rgb(var(--dark-brown)) 16%, rgb(var(--dark-brown)) 17%, transparent 18%),
@@ -61,6 +61,10 @@
   margin-left: var(--mar-left);
   transform: rotateY(180deg);
 }
+.card.stacked:before {
+  color: transparent;
+  text-shadow: none;
+}
 .card.play {
   --top: initial;
   --left: initial;
@@ -75,7 +79,7 @@
   z-index: initial;
 }
 .card:before {
-  content: "";
+  content: attr(data-value);
   position: absolute;
   backface-visibility: hidden;
 }
@@ -86,10 +90,10 @@
   right: calc(0px - var(--border));
   border-radius: 5px;
   background:
-    conic-gradient(from 180deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 40% calc(100% + 2px) / 17.5% 11%,
-    conic-gradient(from 180deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 60% calc(100% + 2px) / 17.5% 11%,
-    conic-gradient(from 0deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 40% -2px / 17.5% 11%,
-    conic-gradient(from 0deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 60% -2px / 17.5% 11%,
+    conic-gradient(from 180deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 43% calc(100% + 2px) / 17.5% 11%,
+    conic-gradient(from 180deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 57% calc(100% + 2px) / 17.5% 11%,
+    conic-gradient(from 0deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 43% -2px / 17.5% 11%,
+    conic-gradient(from 0deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) 57% -2px / 17.5% 11%,
     conic-gradient(from 90deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) calc(100% + 3px) 45% / 17.5% 11%,
     conic-gradient(from 90deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) calc(100% + 3px) 55% / 17.5% 11%,
     conic-gradient(from -90deg, rgb(var(--face-color)) 12.5%, transparent 13%, transparent 87%, rgb(var(--face-color)) 87.5%) -4px 45% / 17.5% 11%,
@@ -98,55 +102,125 @@
     white;
   background-repeat: no-repeat;
   border: var(--border) solid rgb(var(--face-color));
+  line-height: 30vh;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  color: #ffa000;
+  font-style: italic;
+  text-shadow: 1px 1px black,
+    -1px -1px black,
+    1px -1px black,
+    -1px 1px black;
 }
 .card .arrow {
+  --arrow-size: 0.8vh;
   height: 0;
   width: 0;
-  border: 8px solid transparent;
+  border: var(--arrow-size) solid transparent;
   position: absolute;
   backface-visibility: hidden;
 }
+.card .arrow:before {
+  content: "";
+  position: absolute;
+  border-width: var(--arrow-size);
+  border-style: solid;
+  border-color: transparent;
+}
 .card .arrow:nth-child(1) {
+  border-top-color: rgb(var(--black));
+  border-left-color: rgb(var(--black));
+  top: -2px;
+  left: -2px;
+}
+.card .arrow:nth-child(1):before {
   border-top-color: rgb(var(--arrow));
   border-left-color: rgb(var(--arrow));
-  border-width: 5px;
+  border-width: calc(var(--arrow-size) * 0.7);
+  top: calc(0px - var(--arrow-size) * 0.8);
+  left: calc(0px - var(--arrow-size) * 0.8);
 }
 .card .arrow:nth-child(2) {
+  border-bottom-color: rgb(var(--black));
+  border-width: calc(var(--arrow-size) * 1.4);
+  top: calc(0px - var(--arrow-size) * 1.5);
+  left: calc(50% - var(--arrow-size) * 1.4);
+}
+.card .arrow:nth-child(2):before {
   border-bottom-color: rgb(var(--arrow));
-  top: -9px;
-  left: calc(50% - 8px);
+  top: calc(0px - var(--arrow-size) * 0.77);
+  left: calc(50% - var(--arrow-size) * 0.9);
 }
 .card .arrow:nth-child(3) {
+  border-top-color: rgb(var(--black));
+  border-right-color: rgb(var(--black));
+  top: -2px;
+  right: -2px;
+}
+.card .arrow:nth-child(3):before {
   border-top-color: rgb(var(--arrow));
   border-right-color: rgb(var(--arrow));
-  border-width: 5px;
-  right: 0;
+  border-width: calc(var(--arrow-size) * 0.7);
+  top: calc(0px - var(--arrow-size) * 0.8);
+  left: calc(0px - var(--arrow-size) * 0.6);
 }
 .card .arrow:nth-child(4) {
+  border-left-color: rgb(var(--black));
+  border-width: calc(var(--arrow-size) * 1.4);
+  top: calc(50% - var(--arrow-size) * 1.4);
+  right: calc(0px - var(--arrow-size) * 1.4);
+}
+.card .arrow:nth-child(4):before {
   border-left-color: rgb(var(--arrow));
-  right: -9px;
-  top: calc(50% - 9px);
+  top: calc(50% - var(--arrow-size) * 0.9);
+  left: calc(0px - var(--arrow-size) * 1.05);
 }
 .card .arrow:nth-child(5) {
+  border-bottom-color: rgb(var(--black));
+  border-right-color: rgb(var(--black));
+  bottom: -2px;
+  right: -2px;
+}
+.card .arrow:nth-child(5):before {
   border-bottom-color: rgb(var(--arrow));
   border-right-color: rgb(var(--arrow));
-  border-width: 5px;
-  bottom: 0;
-  right: 0;
+  border-width: calc(var(--arrow-size) * 0.7);
+  top: calc(0px - var(--arrow-size) * 0.6);
+  left: calc(0px - var(--arrow-size) * 0.6);
 }
 .card .arrow:nth-child(6) {
+  border-top-color: rgb(var(--black));
+  border-width: calc(var(--arrow-size) * 1.4);
+  bottom: calc(0px - var(--arrow-size) * 1.5);
+  left: calc(50% - var(--arrow-size) * 1.4);
+}
+.card .arrow:nth-child(6):before {
   border-top-color: rgb(var(--arrow));
-  bottom: -9px;
-  left: calc(50% - 9px);
+  top: calc(0px - var(--arrow-size));
+  left: calc(50% - var(--arrow-size) * 0.9);
 }
 .card .arrow:nth-child(7) {
+  border-bottom-color: rgb(var(--black));
+  border-left-color: rgb(var(--black));
+  bottom: -2px;
+  left: -2px;
+}
+.card .arrow:nth-child(7):before {
   border-bottom-color: rgb(var(--arrow));
   border-left-color: rgb(var(--arrow));
-  border-width: 5px;
-  bottom: 0;
+  border-width: calc(var(--arrow-size) * 0.7);
+  top: calc(0px - var(--arrow-size) * 0.6);
+  left: calc(0px - var(--arrow-size) * 0.8);
 }
 .card .arrow:nth-child(8) {
+  border-right-color: rgb(var(--black));
+  border-width: calc(var(--arrow-size) * 1.4);
+  bottom: calc(50% - var(--arrow-size) * 1.4);
+  left: calc(0px - var(--arrow-size) * 1.5);
+}
+.card .arrow:nth-child(8):before {
   border-right-color: rgb(var(--arrow));
-  left: -9px;
-  top: calc(50% - 9px);
+  top: calc(50% - var(--arrow-size) * 0.9);
+  left: calc(0px - var(--arrow-size) * 0.77);
 }

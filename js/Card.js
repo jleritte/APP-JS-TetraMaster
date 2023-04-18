@@ -3,6 +3,7 @@ import { masterCardList } from './cardList.js'
 
 const cards = new WeakMap(),
   types = ["P", "M", "X", "A"],
+  catergories = [["b"],["w"],["w"],["s"],["o"],["c"],["u"]],
   statMap = { atk: 1, pdef: 3, mdef: 4 },
   promoteOdds = [0.0165, 0.0165, 0.0056, 0]
 
@@ -39,7 +40,7 @@ export default class Card {
     return [atk, pdef, mdef].reduce((a, b) => a > b ? a : b)
   }
   get icon() {
-    return masterCardList[cards.get(this).num][5]
+    return catergories[masterCardList[cards.get(this).num][5]][0]
   }
   get num() {
     return cards.get(this).num
@@ -103,5 +104,5 @@ function toValue(card) {
 }
 
 function toHexNyble(num) {
-  return (num >>> 4).toString(16)
+  return (num >>> 4).toString(16).toUpperCase()
 }

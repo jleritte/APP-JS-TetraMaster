@@ -127,6 +127,7 @@
   border-width: var(--arrow-size);
   border-style: solid;
   border-color: transparent;
+  backface-visibility: hidden;
 }
 .card .arrow:nth-child(1) {
   border-top-color: rgb(var(--black));

@@ -6,16 +6,62 @@
   <title>Tetra Style Tests</title>
   <link rel="stylesheet" type="text/css" href="./css/tetra.css">
   <link rel="stylesheet" type="text/css" href="./css/card.css">
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
 </head>
 <body>
 <div class="play-area">
   <div class="section">
     <div class="opponent-hand">
-      <div class="card stacked" data-value="0P00"></div>
-      <div class="card stacked" data-value="0P00"></div>
-      <div class="card stacked" data-value="0P00"></div>
-      <div class="card stacked" data-value="0P00"></div>
-      <div class="card stacked" data-value="0P00"></div>
+      <div class="card stacked" data-value="0P00">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="card stacked" data-value="0P00">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="card stacked" data-value="0P00">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="card stacked" data-value="0P00">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="card stacked" data-value="0P00">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
     <div class="score">
       <div class="p1">10</div>
@@ -54,71 +100,66 @@
       <div></div>
     </div>
     <div class="card red" data-value="0P00">
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
     <div class="card green" data-value="0P00">
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
     <div class="card silver" data-value="0P00">
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
     <div class="card gold" data-value="0P00">
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
-      <div class="arrow"></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
 </div>
 <script>
   const cards = document.querySelectorAll(".card"),
     cells = document.querySelectorAll(".board > .cell")
-  const copyCard = (cell, card) => {
+  const playCard = (cell, card) => {
     if(cell.children.length === 1) return
-    let newCard = document.createElement('div')
-    newCard.className = card.className
     cell.appendChild(card)
     card.classList.remove('play')
     card.classList.remove('stacked')
-    // newCard.children = card.children
-    // card.parentNode.removeChild(card)
+    card.removeAttribute('style')
   }
   cards.forEach(c => {
-    if (c.classList.contains('blue')) {
-      let combo = (Math.random() * 256) | 0
-      c.classList.add(combo)
-      console.log(combo.toString(2).padStart(8,"0"))
-      combo.toString(2).padStart(8,"0").split("").forEach((e,i) => {
-        if (+e == 1) {
-          c.children[i].classList.add('arrow')
-        }
-      });
-    }
+    let combo = (Math.random() * 256) | 0
+    c.classList.add(combo)
+    console.log(combo.toString(2).padStart(8,"0"))
+    combo.toString(2).padStart(8,"0").split("").forEach((e,i) => {
+      if (+e == 1) {
+        c.children[i].classList.add('arrow')
+      }
+    })
     c.onclick = e => {
       const card = e.target,
         rect = card.getBoundingClientRect()
@@ -148,7 +189,7 @@
           card.style.setProperty('--mar-left','0')
         },0)
         card.ontransitionend = e => {
-          copyCard(c, e.target)
+          playCard(c, e.target)
         }
       }
     }

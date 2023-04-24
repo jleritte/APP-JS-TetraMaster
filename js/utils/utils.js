@@ -37,7 +37,3 @@ export function hexToRange(value) {
     [240,255]
   ][value]
 }
-
-export function arrowToBits(num) {
-  return num.toString(2),padStart(8,"0").split("")
-}

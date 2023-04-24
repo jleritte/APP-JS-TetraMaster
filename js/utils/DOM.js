@@ -1,46 +1,91 @@
-// DOM FUNCTIONS
-let proto, local = /localhost|127\.0\.0\.1/.test(window.location) ? "" : 'https://jleritte.github.io/roller/'
+const local = /localhost|127\.0\.0\.1/.test(window.location) ? "" : 'https://jleritte.github.io/roller/' // Update this to point to correct css url
+
+class Element {
+  constructor(parent, type, attributes) {
+    const element = document.createElement(type)
+    attachAttributes(attributes, element)
+    parent.appendChild(element)
+    return element
+  }
+}
+
+function attachAttributes(attributes, element) {
+  for(const attribute in attributes) {
+    if(attribute === "data") {
+      for(const dataAttribute in attributes.data) {
+        element.dataset[dataAttribute] = attributes.data[dataAttribute]
+      }
+    }
+    element[attribute] = attributes[attribute]
+  }
+}
+
+class Div extends Element {
+  constructor(parent, attributes = {}) {
+    return super(parent, 'div', attributes)
+  }
+}
+
+export class Card extends Div {
+  constructor(parent, onclick, card, color = 'blue', stacked = false) {
+    const cardOptions = {
+            onclick,
+            className: `card ${color}${stacked ? ' stacked':''}`,
+            data: {value: card.value}
+          },
+          htmlCard = super(parent, cardOptions)
+    htmlCard.card = card
+    for(let bit of card.arrows) {
+      let arrow = new Div(htmlCard)
+      if(!!+bit) arrow.classList.add("arrow")
+    }
+    return htmlCard
+  }
+}
 
 class DOM {
   constructor() {
+    if ($$) return $$
     proto = Object.getPrototypeOf(this)
+    return copyProto({element: document.firstElementChild})
   }
-  query(selector,context = document) {
-    return copyProto({elements:context.querySelector(selector)})
+  query(selector,context = root) {
+    return copyProto({element:context.querySelector(selector)})
   }
   // queryAll(selector,context = document) {
-  //   return copyProto({elements:[...context.querySelectorAll(selector)]})
+  //   return copyProto({element:[...context.querySelectorAll(selector)]})
   // }
   add(content) {
     if(content){
       if(typeof content !== "object") {
         content = this.create(content)
       }
-      this.elements.appendChild(content.elements)
+      this.element.appendChild(content.element)
       return this
     }
   }
   remove(content) {
     if(content) {
-      this.elements.removeChild(content.elements)
+      this.element.removeChild(content.element)
       return this
     }
   }
   create(content) {
-    let node = document.createElement('div')
+    const node = document.createElement('div')
     node.innerHTML = content
-    return copyProto({elements: document.importNode(node.firstElementChild,true)})
+    return copyProto({element: document.importNode(node.firstElementChild,true)})
   }
   css(url) {
-    let link = document.createElement('link'),
+    const link = document.createElement('link'),
       after = document.querySelector('title')
+    console.log(this.head)
     link.rel = 'stylesheet'
     link.type = 'text/css'
     link.href = local + url
     after.parentNode.insertBefore(link,after)
   }
   icon() {
-    let link = document.createElement('link'),
+    const link = document.createElement('link'),
       after = document.querySelector('title')
     link.rel = 'icon'
     link.type = 'image/x-icon'
@@ -48,29 +93,26 @@ class DOM {
     after.parentNode.insertBefore(link,after)
   }
   set text(text) {
-    this.elements.textContent = text
+    this.element.textContent = text
   }
   set click(handle) {
-    this.elements.onclick = handle
+    this.element.onclick = handle
   }
   set dblclick(handle) {
-    this.elements.ondblclick = handle
+    this.element.ondblclick = handle
   }
   set value(input) {
-    this.elements.value = input
+    this.element.value = input
   }
   get value() {
-    return this.elements.value
+    return this.element.value
   }
   get focus() {
-    this.elements.focus()
+    this.element.focus()
     return this
   }
 }
 
 function copyProto(newOb) {
-  return Object.setPrototypeOf(newOb,proto)
+  return Object.setPrototypeOf(newOb, proto)
 }
-
-let $$ = new DOM()
-export default $$

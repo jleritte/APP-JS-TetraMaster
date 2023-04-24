@@ -29,7 +29,7 @@ export default class Card {
     return masterCardList[cards.get(this).num][0]
   }
   get arrows() {
-    return cards.get(this).arrws
+    return arrowToBits(cards.get(this).arrws)
   }
   get type() {
     return cards.get(this).type
@@ -105,4 +105,8 @@ function toValue(card) {
 
 function toHexNyble(num) {
   return (num >>> 4).toString(16).toUpperCase()
+}
+
+function arrowToBits(num) {
+  return num.toString(2).padStart(8,"0").split("")
 }

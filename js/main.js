@@ -1,11 +1,13 @@
 import Player from './Player.js'
 import Card from './Card.js'
+import { Card as HtmlCard } from './utils/DOM.js'
 // import CardStore from './CardStore.js'
 // import {
 //   getValue,
 //   getWeighted,
 // } from './utils/utils.js'
 
+window.HtmlCard = HtmlCard
 window.Card = Card
 window.player = new Player(/*'928930c6-5922-41a0-8dba-8e7d876a8bb0'*/)
 // window.test = new Card(75)

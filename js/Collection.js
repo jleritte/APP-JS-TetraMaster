@@ -1,4 +1,4 @@
-import Card from './Card.js'
+import Card from './Card/Card.js'
 import CardStore from './CardStore.js'
 
 const collections = new WeakMap(),

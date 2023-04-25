@@ -1,4 +1,4 @@
-export const masterCardList = [
+[
   ["Goblin",[0,0],0,[0,0],[0,0],0],
   ["Fang",[0,0],0,[0,0],[0,0],0],
   ["Skeleton",[0,0],0,[0,0],[0,0],0],
@@ -99,26 +99,4 @@ export const masterCardList = [
   ["Namingway",[7,7],1,[7,7],[7,7],6],
   ["Boko",[7,8],0,[7,7],[7,7],6],
   ["Airship",[7,8],0,[7,7],[7,7],6]
-]
-
-export const challengers = [
-  {"name":"Zidane","cards":[],"img":"images/Zidane.JPG","rating":5},
-  {"name":"Vivi","cards":[],"img":"images/Vivi.JPG","rating":5},
-  {"name":"Garnet","cards":[],"img":"images/Garnet.JPG","rating":4},
-  {"name":"Steiner","cards":[],"img":"images/Steiner.JPG","rating":4},
-  {"name":"Freya","cards":[],"img":"images/Freya.JPG","rating":4},
-  {"name":"Amarant","cards":[],"img":"images/Amarant.JPG","rating":4},
-  {"name":"Quina","cards":[],"img":"images/Quina.JPG","rating":4},
-  {"name":"Eiko","cards":[],"img":"images/Eiko.JPG","rating":4},
-  {"name":"Thorn","cards":[],"img":"images/Thorn.JPG","rating":3},
-  {"name":"Zorn","cards":[],"img":"images/Zorn.JPG","rating":3},
-  {"name":"Queen Brahne","cards":[],"img":"images/QueenBrahne.JPG","rating":1},
-  {"name":"Kuja","cards":[],"img":"images/Kuja.JPG","rating":5},
-  {"name":"Beatrix","cards":[],"img":"images/Beatrix.JPG","rating":3},
-  {"name":"Blank","cards":[],"img":"images/Blank.JPG","rating":3},
-  {"name":"Cinna","cards":[],"img":"images/Cinna.JPG","rating":3},
-  {"name":"Baku","cards":[],"img":"images/Baku.JPG","rating":3},
-  {"name":"Marcus","cards":[],"img":"images/Marcus.JPG","rating":3},
-  {"name":"Mog","cards":[],"img":"images/Mog.JPG","rating":2},
-  {"name":"Fat Chocobo","cards":[],"img":"images/FatChocobo.JPG","rating":2}
 ]

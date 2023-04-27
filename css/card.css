@@ -121,107 +121,67 @@
   position: absolute;
   backface-visibility: hidden;
 }
-.card .arrow:before {
-  content: "";
-  position: absolute;
-  border-width: var(--arrow-size);
-  border-style: solid;
-  border-color: transparent;
-  backface-visibility: hidden;
-}
 .card .arrow:nth-child(1) {
-  border-top-color: rgb(var(--black));
-  border-left-color: rgb(var(--black));
+  border-top-color: rgb(var(--arrow));
+  border-left-color: rgb(var(--arrow));
+  filter: drop-shadow(1px 1px rgb(var(--black)));
+  box-shadow: -1px -1px rgb(var(--black));
   top: -2px;
   left: -2px;
 }
-.card .arrow:nth-child(1):before {
-  border-top-color: rgb(var(--arrow));
-  border-left-color: rgb(var(--arrow));
-  border-width: calc(var(--arrow-size) * 0.7);
-  top: calc(0px - var(--arrow-size) * 0.8);
-  left: calc(0px - var(--arrow-size) * 0.8);
-}
 .card .arrow:nth-child(2) {
-  border-bottom-color: rgb(var(--black));
+  border-bottom-color: rgb(var(--arrow));
   border-width: calc(var(--arrow-size) * 1.4);
+  filter: drop-shadow(0 -1px rgb(var(--black)));
+  box-shadow: 0 1px rgb(var(--black));
   top: calc(0px - var(--arrow-size) * 1.5);
   left: calc(50% - var(--arrow-size) * 1.4);
 }
-.card .arrow:nth-child(2):before {
-  border-bottom-color: rgb(var(--arrow));
-  top: calc(0px - var(--arrow-size) * 0.77);
-  left: calc(50% - var(--arrow-size) * 0.9);
-}
 .card .arrow:nth-child(3) {
-  border-top-color: rgb(var(--black));
-  border-right-color: rgb(var(--black));
+  border-top-color: rgb(var(--arrow));
+  border-right-color: rgb(var(--arrow));
+  filter: drop-shadow(-1px 1px rgb(var(--black)));
+  box-shadow: 1px -1px rgb(var(--black));
   top: -2px;
   right: -2px;
 }
-.card .arrow:nth-child(3):before {
-  border-top-color: rgb(var(--arrow));
-  border-right-color: rgb(var(--arrow));
-  border-width: calc(var(--arrow-size) * 0.7);
-  top: calc(0px - var(--arrow-size) * 0.8);
-  left: calc(0px - var(--arrow-size) * 0.6);
-}
 .card .arrow:nth-child(4) {
-  border-left-color: rgb(var(--black));
+  border-left-color: rgb(var(--arrow));
   border-width: calc(var(--arrow-size) * 1.4);
+  filter: drop-shadow(1px 0 rgb(var(--black)));
+  box-shadow: -1px 0 rgb(var(--black));
   top: calc(50% - var(--arrow-size) * 1.4);
   right: calc(0px - var(--arrow-size) * 1.4);
 }
-.card .arrow:nth-child(4):before {
-  border-left-color: rgb(var(--arrow));
-  top: calc(50% - var(--arrow-size) * 0.9);
-  left: calc(0px - var(--arrow-size) * 1.05);
-}
 .card .arrow:nth-child(5) {
-  border-bottom-color: rgb(var(--black));
-  border-right-color: rgb(var(--black));
+  border-bottom-color: rgb(var(--arrow));
+  border-right-color: rgb(var(--arrow));
+  filter: drop-shadow(-1px -1px rgb(var(--black)));
+  box-shadow: 1px 1px rgb(var(--black));
   bottom: -2px;
   right: -2px;
 }
-.card .arrow:nth-child(5):before {
-  border-bottom-color: rgb(var(--arrow));
-  border-right-color: rgb(var(--arrow));
-  border-width: calc(var(--arrow-size) * 0.7);
-  top: calc(0px - var(--arrow-size) * 0.6);
-  left: calc(0px - var(--arrow-size) * 0.6);
-}
 .card .arrow:nth-child(6) {
-  border-top-color: rgb(var(--black));
+  border-top-color: rgb(var(--arrow));
   border-width: calc(var(--arrow-size) * 1.4);
+  filter: drop-shadow(0 1px rgb(var(--black)));
+  box-shadow: 0 -1px rgb(var(--black));
   bottom: calc(0px - var(--arrow-size) * 1.5);
   left: calc(50% - var(--arrow-size) * 1.4);
 }
-.card .arrow:nth-child(6):before {
-  border-top-color: rgb(var(--arrow));
-  top: calc(0px - var(--arrow-size));
-  left: calc(50% - var(--arrow-size) * 0.9);
-}
 .card .arrow:nth-child(7) {
-  border-bottom-color: rgb(var(--black));
-  border-left-color: rgb(var(--black));
+  border-bottom-color: rgb(var(--arrow));
+  border-left-color: rgb(var(--arrow));
+  filter: drop-shadow(1px -1px rgb(var(--black)));
+  box-shadow: -1px 1px rgb(var(--black));
   bottom: -2px;
   left: -2px;
 }
-.card .arrow:nth-child(7):before {
-  border-bottom-color: rgb(var(--arrow));
-  border-left-color: rgb(var(--arrow));
-  border-width: calc(var(--arrow-size) * 0.7);
-  top: calc(0px - var(--arrow-size) * 0.6);
-  left: calc(0px - var(--arrow-size) * 0.8);
-}
 .card .arrow:nth-child(8) {
-  border-right-color: rgb(var(--black));
+  border-right-color: rgb(var(--arrow));
   border-width: calc(var(--arrow-size) * 1.4);
+  filter: drop-shadow(-1px 0 rgb(var(--black)));
+  box-shadow: 1px 0 rgb(var(--black));
   bottom: calc(50% - var(--arrow-size) * 1.4);
   left: calc(0px - var(--arrow-size) * 1.5);
-}
-.card .arrow:nth-child(8):before {
-  border-right-color: rgb(var(--arrow));
-  top: calc(50% - var(--arrow-size) * 0.9);
-  left: calc(0px - var(--arrow-size) * 0.77);
 }

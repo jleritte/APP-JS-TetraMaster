@@ -3,7 +3,7 @@ import { loadJSON } from '../utils/loaders.js'
 
 const cards = new WeakMap(),
   types = ["P", "M", "X", "A"],
-  catergories = [["b"],["w"],["w"],["s"],["o"],["c"],["u"]],
+  catergories = [["b"],["m"],["w"],["s"],["c"],["p"],["u"]],
   statMap = { attack: 1, pdefense: 3, mdefense: 4 },
   promoteOdds = [0.0165, 0.0165, 0.0056, 0]
 let masterCardList

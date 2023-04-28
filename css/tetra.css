@@ -94,8 +94,7 @@
   border-bottom-color: #333;
   background-color: #888;
   border-radius: initial;
-  mask-size: calc(100% );
-  mask-position: calc(0px - var(--border-size));
+  mask-size: 100%;
 }
 .cell > .cracked_one {
   mask-image: url("/images/cracks_1.svg");

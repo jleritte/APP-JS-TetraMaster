@@ -67,6 +67,24 @@
       <div class="p1">10</div>
       <div class="p2">10</div>
     </div> -->
+    <div class="board">
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+    </div>
   </div>
   <div class="section">
     <div class="cardSelection">
@@ -173,24 +191,6 @@
         <div class="cardStore full" data-type="&#xe804;"></div>
       </div>
     </div>
-    <!-- <div class="board">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div> -->
   </div>
   <div class="section">
     <div class="card blue" data-value="0P00">
@@ -258,7 +258,6 @@
   cards.forEach(c => {
     let combo = (Math.random() * 256) | 0
     c.classList.add(combo)
-    console.log(combo.toString(2).padStart(8,"0"))
     combo.toString(2).padStart(8,"0").split("").forEach((e,i) => {
       if (+e === 1) {
         c.children[i].classList.add('arrow')
@@ -272,9 +271,11 @@
     }
   })
   blocks = Math.random() * 7 | 0
-  console.log(blocks)
   cells.forEach(c => {
-    if(blocks && Math.round(Math.random() * 1)) {
+    if(blocks && Math.round(Math.random())) {
+      const block = document.createElement('div')
+      block.classList.add(`cracked_${Math.round(Math.random())?'one':'two'}`)
+      c.appendChild(block)
       c.classList.add('block')
       blocks--
     }
@@ -307,6 +308,7 @@
     }
     if (x % 3 === 0) {
       element.classList.toggle('full')
+      element.dataset.count = Math.random() * 5 | 0
     }
     if (x % 5 === 0) {
       element.classList.toggle('full')

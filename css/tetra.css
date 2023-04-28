@@ -57,7 +57,7 @@
 .cell {
   aspect-ratio: 14 / 17;
   height: 19vh;
-  border: var(--half-border) solid mediumpurple;
+  border: var(--half-border) solid #880085;
   position: relative;
 }
 .cell:first-child {
@@ -78,13 +78,31 @@
   top: calc(0px - var(--half-border));
   left: calc(0px - var(--half-border));
 }
+
 .cell.block {
-  border: 20px double #555;
+  border: none;
+  background-color: #222;
+  border-radius: unset;
+}
+.cell [class^="cracked_"] {
+  --border-size: 20px;
+  height: 100%;
+  border: var(--border-size) double #555;
+  border-left-color: #555;
   border-top-color: #666;
   border-right-color: #444;
   border-bottom-color: #333;
   background-color: #888;
   border-radius: initial;
+  mask-size: calc(100% );
+  mask-position: calc(0px - var(--border-size));
+}
+.cell > .cracked_one {
+  mask-image: url("/images/cracks_1.svg");
+}
+
+.cell > .cracked_two {
+  mask-image: url("/images/cracks_2.svg");
 }
 
 .collection {

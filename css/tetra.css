@@ -85,7 +85,7 @@
   border-radius: unset;
 }
 .cell [class^="cracked_"] {
-  --border-size: 20px;
+  --border-size: 15px;
   height: 100%;
   border: var(--border-size) double #616161;
   border-top-color: #6b6b6b;
@@ -101,6 +101,14 @@
 
 .cell > .cracked_two {
   mask-image: url("/images/cracks_2.svg");
+}
+
+.cell > .cracked_three {
+  mask-image: url("/images/cracks_3.svg");
+}
+
+.cell > .cracked_four {
+  mask-image: url("/images/cracks_4.svg");
 }
 
 .collection {

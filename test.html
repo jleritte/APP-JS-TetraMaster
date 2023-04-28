@@ -274,7 +274,7 @@
   cells.forEach(c => {
     if(blocks && Math.round(Math.random())) {
       const block = document.createElement('div')
-      block.classList.add(`cracked_${Math.round(Math.random())?'one':'two'}`)
+      block.classList.add(`cracked_${['one','two','three','four'][Math.round(Math.random() * 3)]}`)
       c.appendChild(block)
       c.classList.add('block')
       blocks--

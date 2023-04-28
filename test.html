@@ -308,7 +308,8 @@
     }
     if (x % 3 === 0) {
       element.classList.toggle('full')
-      element.dataset.count = Math.random() * 5 | 0
+      const count = Math.random() * 4 + 2 | 0
+      element.dataset.count = count
     }
     if (x % 5 === 0) {
       element.classList.toggle('full')

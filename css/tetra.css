@@ -57,7 +57,7 @@
 .cell {
   aspect-ratio: 14 / 17;
   height: 19vh;
-  border: var(--half-border) solid #880085;
+  border: var(--half-border) solid #522d80;
   position: relative;
 }
 .cell:first-child {
@@ -81,19 +81,18 @@
 
 .cell.block {
   border: none;
-  background-color: #222;
+  background-color: #383838;
   border-radius: unset;
 }
 .cell [class^="cracked_"] {
   --border-size: 20px;
   height: 100%;
-  border: var(--border-size) double #555;
-  border-left-color: #555;
-  border-top-color: #666;
-  border-right-color: #444;
-  border-bottom-color: #333;
-  background-color: #888;
-  border-radius: initial;
+  border: var(--border-size) double #616161;
+  border-top-color: #6b6b6b;
+  border-right-color: #575757;
+  border-bottom-color: #4d4d4d;
+  background-color: #808080;
+  border-radius: 2px;
   mask-size: 100%;
 }
 .cell > .cracked_one {

@@ -67,7 +67,7 @@
       <div class="p1">10</div>
       <div class="p2">10</div>
     </div> -->
-    <div class="board">
+    <!-- <div class="board">
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
@@ -84,7 +84,7 @@
       <div class="cell"></div>
       <div class="cell"></div>
       <div class="cell"></div>
-    </div>
+    </div> -->
   </div>
   <div class="section">
     <div class="cardSelection">
@@ -190,6 +190,8 @@
         <div class="cardStore full" data-type="&#xe804;"></div>
         <div class="cardStore full" data-type="&#xe804;"></div>
       </div>
+      <div class="stats"></div>
+      <div class="cardSelector"></div>
     </div>
   </div>
   <div class="section">
@@ -316,6 +318,11 @@
     }
     x++
   }
+  const collection = document.querySelector('.collection')
+  collection.dataset.stock = Array.from(document.querySelectorAll('.full')).reduce((a,c) => {
+    a += +c.dataset.count || 1
+    return a
+  }, 0)
 </script>
 </body>
 </html>

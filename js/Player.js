@@ -14,25 +14,15 @@ export default class Player {
       draws: 0
     })
   }
-  get id() {
-    return players.get(this).id
-  }
-  get collection() {
-    return players.get(this).collection
-  }
+  get id() { return players.get(this).id }
+  get collection() { return players.get(this).collection }
   get gameStats() {
     const { wins, losses, draws } = players.get(this)
     return {wins,losses,draws}
   }
-  get lose() {
-    return ++players.get(this).losses
-  }
-  get win() {
-    return ++players.get(this).win
-  }
-  get draw() {
-    return ++players.get(this).draws
-  }
+  get lose() { return ++players.get(this).losses }
+  get win() { return ++players.get(this).win }
+  get draw() { return ++players.get(this).draws }
   toString() {
     const { collection, wins, losses, draws } = players.get(this)
     return [wins,losses,draws,collection].join(',')

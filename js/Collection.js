@@ -10,12 +10,8 @@ export default class Collection {
       ...generateStores(cards)
     })
   }
-  get size() {
-    return collections.get(this).size
-  }
-  getStore(num) {
-    return collections.get(this)[num]
-  }
+  get size() { return collections.get(this).size }
+  getStore(num) { return collections.get(this)[num] }
   addCards(cards) {
     const collection = collections.get(this)
     while (cards.length && collection.size < maxCards) {
@@ -55,3 +51,10 @@ function generateStores(cards) {
     return acc
   }, { size: 0 })
 }
+
+
+/**
+ * Start cards
+ * Zombie, Lizard Man, Sahagin, Fang, Goblin, Flan, Ironite, Goblin, Fang, Bomb,
+ * Goblin, Fang, Bomb
+ */

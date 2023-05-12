@@ -8,7 +8,8 @@ export default class Card {
   }
   get value() { return toValue(cards.get(this)) }
   get name() { return cards.get(this).name }
-  get arrows() { return arrowToBits(cards.get(this).arrows) }
+  get arrowsRaw() { return cards.get(this).arrows }
+  get arrows() { return arrowToBits(this.arrowsRaw) }
   get type() { return cards.get(this).type }
   get attack() {
     const { attack, type, pdefense, mdefense } = cards.get(this)

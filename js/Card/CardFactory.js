@@ -1,12 +1,7 @@
 import Card from './Card.js'
 import { getValue } from '../utils/utils.js'
-import { loadJSON } from '../utils/loaders.js'
 
-export default async function loadCards() {
-  return createCardFactory(await loadJSON('/js/Card/cardList'))
-}
-
-function createCardFactory(masterCardList) {
+export default function createCardFactory(masterCardList) {
   const cardFactories = {
     card: cardString => {
       if (typeof cardString === 'number') return cardString
@@ -24,7 +19,7 @@ function createCardFactory(masterCardList) {
       type,
       pdefenseRange,
       mdefenseRange
-    ] = masterCardList[num],
+    ] = masterCardList[number],
     attack = getValue(...hexToRange(attackRange[0])),
     pdefense = getValue(...hexToRange(pdefenseRange[0])),
     mdefense = getValue(...hexToRange(mdefenseRange[0])),

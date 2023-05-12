@@ -1,24 +1,9 @@
-// import { loadCardList } from '../utils/loaders.js'
+import { toHex } from '../utils/utils.js'
 
-const stores = new WeakMap(),
-  catergories = [
-    ["&#xe803;"],
-    ["&#xe801;"],
-    ["&#xe800;"],
-    ["&#xe802;"],
-    ["&#xe806;"],
-    ["&#xe805;"],
-    ["&#xe804;"]
-   ]
-let masterCardList
+const stores = new WeakMap()
 
 export default class CardStore {
-  constructor(num) {
-    stores.set(this, {
-      num,
-      cards: []
-    })
-  }
+  constructor(number, cards, icon) { stores.set(this, { number, cards, icon }) }
   get num() { return stores.get(this).num }
   get peek() { return stores.get(this).cards[0] }
   get rotateLeft() {
@@ -31,18 +16,16 @@ export default class CardStore {
     cards.unshift(cards.pop())
     return this.peek
   }
-  get icon() {
-    return catergories[masterCardList[cards.get(this).number][5]][0]
-  }
+  get icon() { return stores.get(this).icon }
   get size() { return stores.get(this).cards.length }
   get card() { return stores.get(this).cards.shift() }
   set card(card) {
-    const { cards, num } = stores.get(this)
-    if(card.num === num) return cards.push(card)
+    const { cards, number } = stores.get(this)
+    if(card.number === number) return cards.push(card)
     console.warn("Card Does not match Store Number")
   }
-  toString() { return stores.get(this).cards.join("|") }
+  toString() {
+    const store = stores.get(this)
+    return `${toHex(store.number)}:${store.cards.join(":")}`
+  }
 }
-
-// const getCardList = async _ => masterCardList = await loadCardList()
-// getCardList()

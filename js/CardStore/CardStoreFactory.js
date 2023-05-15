@@ -13,8 +13,7 @@ const catergories = [
 export default function createCardStoreFactory(masterCardList, cardFactory) {
   const storeFactories = {
     store: storeString => {
-      if (typeof storeString === 'number') return storeString
-      if (!storeString?.length) return undefined
+      if (!storeString?.length) return new CardStore(-1, [], "")
       const split = storeString.split(':'),
             number = parseInt(split.shift(), 16),
             cards = split.map(value => cardFactory.card(value)),
@@ -25,7 +24,7 @@ export default function createCardStoreFactory(masterCardList, cardFactory) {
 
   function storeBuilder(number) {
     const icon = catergories[masterCardList[number][5]]
-    return new CardStore(number, [], icon)
+    return new CardStore(+number, [], icon)
   }
 
   for(const i in masterCardList) {

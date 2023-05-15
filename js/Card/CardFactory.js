@@ -4,8 +4,7 @@ import { getValue } from '../utils/utils.js'
 export default function createCardFactory(masterCardList) {
   const cardFactories = {
     card: cardString => {
-      if (typeof cardString === 'number') return cardString
-      if (!cardString?.length) return undefined
+      if (!cardString?.length) return new Card('', ...(new Array(6).fill(-1)))
       const values = cardString.split('.').map(value => parseInt(value, 16))
       values.unshift(masterCardList[values[0]][0])
       return new Card(...values)
@@ -24,7 +23,7 @@ export default function createCardFactory(masterCardList) {
     pdefense = getValue(...hexToRange(pdefenseRange[0])),
     mdefense = getValue(...hexToRange(mdefenseRange[0])),
     arrows = getValue(0, 255)
-    return new Card(name, number, attack, type, pdefense, mdefense, arrows)
+    return new Card(name, +number, attack, type, pdefense, mdefense, arrows)
   }
 
   for(const i in masterCardList) {

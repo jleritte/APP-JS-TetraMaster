@@ -1,19 +1,34 @@
 import Player from './Player.js'
 /**
  * Start cards
- * Zombie, Lizard Man, Sahagin, Fang, Goblin, Flan, Ironite, Goblin, Fang, Bomb,
- * Goblin, Fang, Bomb
+ * bomb, bomb, fang, fang, fang, flan, goblin, goblin, goblin, ironite,
+ * lizardman, sahagin, zombie
  */
+const startCards = ["bomb", "bomb", "fang", "fang", "fang", "flan", "goblin",
+  "goblin", "goblin", "ironite", "lizardman", "sahagin", "zombie"]
 
 export default function createPlayerFactory(masterCardList, factories) {
-  const playerFactory = {},
-        collection = createEmptyCollection(masterCardList, factories.stores)
+  const playerFactory = {
+          load: id => {
+            const saved = (localStorage.getItem(id) ?? "").split('|')
+            if(saved.length < 2) return createPlayer()
+            const [wins, losses, draws] = saved.shift().split('•'),
+                  cards = saved.map(store => factories.stores.store(store))
+            return new Player(id, cards, +wins, +losses, +draws)
+          }
+        }
 
-  function createPlayer(id) {
-
+  function createPlayer() {
+    const id = generateId(),
+      collection = createEmptyCollection(masterCardList, factories.stores)
+    for(const name of startCards) {
+      const card = factories.cards[name]
+      collection[card.number].card = card
+    }
+    return new Player(id, collection, 0, 0, 0)
   }
 
-  Object.defineProperty(playerFactory, 'new', )
+  Object.defineProperty(playerFactory, 'new', {get: createPlayer})
 
 
   return playerFactory
@@ -28,11 +43,11 @@ function generateId() {
   })
 }
 
-function createEmptyCollection(masterCardList, stores) {
+function createEmptyCollection(masterCardList, storeFactory) {
   const collection = []
   for(const card of masterCardList) {
     const name = card[0].replaceAll(' ', '').toLowerCase()
-    collection.push(stores[name])
+    collection.push(storeFactory[name])
   }
   return collection
 }

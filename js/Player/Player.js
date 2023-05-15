@@ -5,6 +5,7 @@ const players = new WeakMap(),
 
 export default class Player {
   constructor(id, cards, wins, losses, draws) {
+    cards = cards.filter(store => store.number > -1)
     players.set(this, {
       id,
       cards,
@@ -44,24 +45,13 @@ export default class Player {
   get win() { return ++players.get(this).win }
   get draw() { return ++players.get(this).draws }
   toString() {
-    const { cards, wins, losses, draws } = players.get(this)
-    return [wins,losses,draws,...cards].join(',')
+    const { cards, wins, losses, draws } = players.get(this),
+      gameStats = [wins, losses, draws].join('•')
+    return [gameStats, ...cards].join('|')
   }
 }
 
 // Helper Functions
-function parse(id) {
-  const saved = (localStorage.getItem(id) ?? "").split(',')
-  if(saved.length < 2) return null
-  return {
-    id,
-    wins: +saved.shift(),
-    losses: +saved.shift(),
-    draws: +saved.shift(),
-    cards: []
-  }
-}
-
 function* getAllCards(cards) {
   for(const store of cards) {
     yield* cardsFromStore(store)

@@ -3,8 +3,11 @@ import { toHex } from '../utils/utils.js'
 const stores = new WeakMap()
 
 export default class CardStore {
-  constructor(number, cards, icon) { stores.set(this, { number, cards, icon }) }
-  get num() { return stores.get(this).num }
+  constructor(number, cards, icon) {
+    cards = cards.filter(card => card.number === number)
+    stores.set(this, { number, cards, icon })
+  }
+  get number() { return stores.get(this).number }
   get peek() { return stores.get(this).cards[0] }
   get rotateLeft() {
     const { cards } = stores.get(this)
@@ -26,6 +29,6 @@ export default class CardStore {
   }
   toString() {
     const store = stores.get(this)
-    return `${toHex(store.number)}:${store.cards.join(":")}`
+    return `${toHex(this.number)}:${store.cards.join(":")}`
   }
 }

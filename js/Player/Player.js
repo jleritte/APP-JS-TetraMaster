@@ -28,9 +28,9 @@ export default class Player {
     const arrows = new Set(),
       flexible = [],
       assault = [],
-      types = this.cards.reduce((acc, cur) => acc + cur.size ? 10 : 0, 0)
+      types = this.cards.reduce((acc, cur) => acc + (cur.size ? 10 : 0), 0)
 
-    for(const card in getAllCards(this.cards)) {
+    for(const card of getAllCards(this.cards)) {
       arrows.add(card.arrowsRaw)
       if(card.type > 2 ) assault.push(1)
       if(card.type === 2) flexible.push(1)

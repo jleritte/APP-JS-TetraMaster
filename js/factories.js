@@ -9,6 +9,5 @@ export default async function loadFactories() {
         cards = createCardFactory(masterCardList),
         stores = createCardStoreFactory(masterCardList, cards),
         players = createPlayerFactory(masterCardList, {cards, stores})
-  console.log(masterCardList)
   return { cards, stores, players }
 }
